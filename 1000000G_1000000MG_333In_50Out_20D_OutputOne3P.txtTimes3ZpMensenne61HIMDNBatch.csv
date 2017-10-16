@@ -1,0 +1,7 @@
+-------------Timings-----------.
+preparationPhase,inputPreparation,computationPhase, verificationPhase, outputPhase, totalTime,
+579,0,132,558,3,0,1274,
+591,0,131,558,8,0,1291,
+598,0,132,579,17,0,1327,
+645,0,131,555,15,0,1348,
+644,3,131,594,18,0,1393,
