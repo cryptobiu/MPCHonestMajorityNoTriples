@@ -49,7 +49,6 @@ private:
     vector<FieldType> randomTAnd2TShares;
     vector<byte> h;//a string accumulated that should be hashed in the comparing views function.
 
-    string genRandomSharesType, multType, verifyType;
     ProtocolTimer* protocolTimer;
     int currentCirciutLayer = 0;
     int offset = 0;
@@ -89,8 +88,7 @@ private:
 
 public:
     Protocol(int n, int id,TemplateField<FieldType> *field, string inputsFile, string outputFile, string circuitFile,
-             ProtocolTimer* protocolTimer,
-             string genRandomSharesType = "HIM", string multType = "DN", string verifyType = "Batch", int groupID = 0);
+             ProtocolTimer* protocolTimer, int groupID = 0);
 
 
     void roundFunctionSync(vector<vector<byte>> &sendBufs, vector<vector<byte>> &recBufs, int round);
@@ -263,13 +261,8 @@ public:
 
 template <class FieldType>
 Protocol<FieldType>::Protocol(int n, int id, TemplateField<FieldType> *field, string inputsFile, string outputFile, string circuitFile,
-                              ProtocolTimer* protocolTimer,
-                              string genRandomSharesType, string multType, string verifyType, int groupID)
+                              ProtocolTimer* protocolTimer, int groupID)
 {
-
-    this->genRandomSharesType = genRandomSharesType;
-    this->multType = multType;
-    this->verifyType = verifyType;
 
     this->protocolTimer = protocolTimer;
     this->field = field;
