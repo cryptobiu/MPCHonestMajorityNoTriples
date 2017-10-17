@@ -4,8 +4,6 @@
 
 #include "TemplateField.h"
 #include "ZpKaratsubaElement.h"
-#include "ZpMersenneLongElement.h"
-#include "ZpMersenneIntElement.h"
 
 
 using namespace NTL;
@@ -26,32 +24,6 @@ TemplateField<ZZ_p>::TemplateField(long fieldParam) {
     m_ONE = new ZZ_p(1);
 }
 
-template <>
-TemplateField<ZpMersenneIntElement>::TemplateField(long fieldParam) {
-
-    this->fieldParam = 2147483647;
-    this->elementSizeInBytes = 4;//round up to the next byte
-    this->elementSizeInBits = 31;
-
-    auto randomKey = prg.generateKey(128);
-    prg.setKey(randomKey);
-
-    m_ZERO = new ZpMersenneIntElement(0);
-    m_ONE = new ZpMersenneIntElement(1);
-}
-
-template <>
-TemplateField<ZpMersenneLongElement>::TemplateField(long fieldParam) {
-
-    this->elementSizeInBytes = 8;//round up to the next byte
-    this->elementSizeInBits = 61;
-
-    auto randomKey = prg.generateKey(128);
-    prg.setKey(randomKey);
-
-    m_ZERO = new ZpMersenneLongElement(0);
-    m_ONE = new ZpMersenneLongElement(1);
-}
 template <>
 TemplateField<ZpKaratsubaElement>::TemplateField(long fieldParam) {
 
@@ -91,48 +63,6 @@ GF2E TemplateField<GF2E>::GetElement(long b) {
 
     return to_GF2E(element);
 }
-
-
-template <>
-ZpMersenneIntElement TemplateField<ZpMersenneIntElement>::GetElement(long b) {
-
-
-    if(b == 1)
-    {
-        return *m_ONE;
-    }
-    if(b == 0)
-    {
-        return *m_ZERO;
-    }
-    else{
-        ZpMersenneIntElement element(b);
-        return element;
-    }
-}
-
-
-template <>
-ZpMersenneLongElement TemplateField<ZpMersenneLongElement>::GetElement(long b) {
-
-
-    if(b == 1)
-    {
-        return *m_ONE;
-    }
-    if(b == 0)
-    {
-        return *m_ZERO;
-    }
-    else{
-        ZpMersenneLongElement element(b);
-        return element;
-    }
-}
-
-
-
-
 
 template <>
 ZpKaratsubaElement TemplateField<ZpKaratsubaElement>::GetElement(long b) {
@@ -204,36 +134,9 @@ void TemplateField<GF2E>::elementToBytes(unsigned char* elemenetInBytes, GF2E& e
 }
 
 template <>
-void TemplateField<ZpMersenneIntElement>::elementToBytes(unsigned char* elemenetInBytes, ZpMersenneIntElement& element){
-
-    memcpy(elemenetInBytes, (byte*)(&element.elem), 4);
-}
-
-
-template <>
-void TemplateField<ZpMersenneLongElement>::elementToBytes(unsigned char* elemenetInBytes, ZpMersenneLongElement& element){
-
-    memcpy(elemenetInBytes, (byte*)(&element.elem), 8);
-}
-
-
-template <>
 void TemplateField<ZpKaratsubaElement>::elementToBytes(unsigned char* elemenetInBytes, ZpKaratsubaElement& element){
 
     memcpy(elemenetInBytes, (byte*)(&element.elem), 5);
-}
-
-template <>
-ZpMersenneIntElement TemplateField<ZpMersenneIntElement>::bytesToElement(unsigned char* elemenetInBytes){
-
-    return ZpMersenneIntElement((unsigned int)(*(unsigned int *)elemenetInBytes));
-}
-
-
-template <>
-ZpMersenneLongElement TemplateField<ZpMersenneLongElement>::bytesToElement(unsigned char* elemenetInBytes){
-
-    return ZpMersenneLongElement((unsigned long)(*(unsigned long *)elemenetInBytes));
 }
 
 template <>

@@ -7,6 +7,8 @@
 
 #include "stdint.h"
 #include <iostream>
+#include "TemplateField.h"
+#include <libscapi/include/primitives/Mersenne.hpp>
 
 
 
