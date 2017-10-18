@@ -60,21 +60,15 @@ cout<<"fieldType = "<<fieldType<<endl;
 
     if(fieldType.compare("ZpMersenne") == 0)
     {
-//        TemplateField<ZpMersenneIntElement> *field = new TemplateField<ZpMersenneIntElement>(2147483647);
-
         ProtocolParty<ZpMersenneIntElement> protocol(argc, argv);
         auto t1 = high_resolution_clock::now();
-        for(int i=0; i<times; i++) {
-            protocol.run(i);
-        }
+            protocol.run();
+
         auto t2 = high_resolution_clock::now();
 
         auto duration = duration_cast<milliseconds>(t2-t1).count();
         cout << "time in milliseconds for " << times << " runs: " << duration << endl;
 
-//        delete field;
-
-//        p.writeToFile();
 
         cout << "end main" << '\n';
 
@@ -82,46 +76,29 @@ cout<<"fieldType = "<<fieldType<<endl;
     else if(fieldType.compare("ZpMersenne61") == 0)
     {
 
-cout<<"in mersenne61"<<endl;
-
-
-//        TemplateField<ZpMersenneLongElement> *field = new TemplateField<ZpMersenneLongElement>(0);
-
         ProtocolParty<ZpMersenneLongElement> protocol(argc, argv);
         auto t1 = high_resolution_clock::now();
-        for(int i=0; i<times; i++) {
-            protocol.run(i);
-        }
+        protocol.run();
         auto t2 = high_resolution_clock::now();
 
         auto duration = duration_cast<milliseconds>(t2-t1).count();
         cout << "time in milliseconds for " << times << " runs: " << duration << endl;
 
-//        delete field;
-
-//        p.writeToFile();
 
         cout << "end main" << '\n';
 
     }
 
     else if(fieldType.compare("ZpKaratsuba") == 0) {
-//        TemplateField<ZpKaratsubaElement> *field = new TemplateField<ZpKaratsubaElement>(0);
-
-
         ProtocolParty<ZpKaratsubaElement> protocol(argc, argv);
         auto t1 = high_resolution_clock::now();
-        for (int i = 0; i < times; i++) {
-            protocol.run(i);
-        }
+        protocol.run();
+
         auto t2 = high_resolution_clock::now();
 
         auto duration = duration_cast<milliseconds>(t2 - t1).count();
         cout << "time in milliseconds for " << times << " runs: " << duration << endl;
 
-//        delete field;
-
-//        p.writeToFile();
 
         cout << "end main" << '\n';
     }
@@ -130,43 +107,32 @@ cout<<"in mersenne61"<<endl;
 
     else if(fieldType.compare("GF2m") == 0)
     {
-//        TemplateField<GF2E> *field = new TemplateField<GF2E>(8);
-
         ProtocolParty<GF2E> protocol(argc, argv);
         auto t1 = high_resolution_clock::now();
-        for(int i=0; i<times; i++) {
-            protocol.run(i);
-        }
+            protocol.run();
+
         auto t2 = high_resolution_clock::now();
 
         auto duration = duration_cast<milliseconds>(t2-t1).count();
         cout << "time in milliseconds for " << times << " runs: " << duration << endl;
 
-//        delete field;
-
-//        p.writeToFile();
 
         cout << "end main" << '\n';
     }
 
     else if(fieldType.compare("Zp") == 0)
     {
-//        TemplateField<ZZ_p> * field = new TemplateField<ZZ_p>(2147483647);
-
         ProtocolParty<ZZ_p> protocol(argc, argv);
 
         auto t1 = high_resolution_clock::now();
-        for(int i=0; i<times; i++) {
-            protocol.run(i);
-        }
+
+        protocol.run();
+
         auto t2 = high_resolution_clock::now();
 
         auto duration = duration_cast<milliseconds>(t2-t1).count();
         cout << "time in milliseconds for " << times << " runs: " << duration << endl;
 
-//        delete field;
-
-//        p.writeToFile();
 
         cout << "end main" << '\n';
 
