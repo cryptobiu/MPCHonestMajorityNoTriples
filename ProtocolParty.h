@@ -336,7 +336,7 @@ ProtocolParty<FieldType>::ProtocolParty(int argc, char* argv[]) : Protocol("MPCH
 
     MPCCommunication comm;
 
-    parties = comm.setCommunication(io_service, m_partyId-1, N, arguments["partiesFile"]);
+    parties = comm.setCommunication(io_service, m_partyId, N, arguments["partiesFile"]);
 
     string tmp = "init times";
     //cout<<"before sending any data"<<endl;
