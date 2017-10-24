@@ -445,15 +445,15 @@ void ProtocolParty<FieldType>::run(int iteration) {
         cout << "time in milliseconds verificationPhase: " << duration << endl;
     }
 
-    t1 = high_resolution_clock::now();
-    comparingViews();
-    t2 = high_resolution_clock::now();
-    duration = duration_cast<milliseconds>(t2-t1).count();
-    protocolTimer->comparingViewsPhaseArr[iteration] = duration;
+    //t1 = high_resolution_clock::now();
+    //comparingViews();
+    //t2 = high_resolution_clock::now();
+    //duration = duration_cast<milliseconds>(t2-t1).count();
+    //protocolTimer->comparingViewsPhaseArr[iteration] = duration;
 
-    if(flag_print_timings) {
-        cout << "time in milliseconds comparing views: " << duration << endl;
-    }
+//    if(flag_print_timings) {
+//        cout << "time in milliseconds comparing views: " << duration << endl;
+//    }
 
 
     t1 = high_resolution_clock::now();
@@ -1526,6 +1526,11 @@ void ProtocolParty<FieldType>::verificationPhase() {
 
     for(int i=0; i<iterations; i++) {
 
+        if(i!=0){
+            //we need the accumulate h from previous phases, after the first iteration we would like to clear the
+            //h in order no to compare with a bigger h than neccesary.
+            h.clear();
+        }
         if (flag_print) {
             cout << "verify batch for party " << m_partyId << endl;
         }
@@ -1594,15 +1599,18 @@ bool ProtocolParty<FieldType>::comparingViews(){
 
 
     if(cmp==0){
-        cout << "all digests are the same" << endl;
+        if (flag_print) {
+            cout << "all digests are the same" << endl;
+        }
+
         return true;
 
     }
     else{
 
-        if (flag_print) {
-            cout << "comparing views failed" << endl;
-        }
+
+           cout << "comparing views failed" << endl;
+
         return false;
 
 
@@ -1741,10 +1749,22 @@ bool ProtocolParty<FieldType>::verificationBatched(FieldType *x, FieldType *y, F
 
     vector<FieldType> r(numOfTriples);//vector holding the random shares generated
     vector<FieldType> rx(numOfTriples);//vector holding the multiplication of x and r
+    vector<FieldType> zTag(numOfTriples);//vector holding z+randomElements*x
+    vector<FieldType> yTag(numOfTriples);//vector holding y+randomElements
     vector<FieldType> firstMult(2*numOfTriples);//vector some computations
     vector<FieldType> secondMult(2*numOfTriples);//vector some computations
     vector<FieldType> outputMult(2*numOfTriples);//vector holding the 4*numOfTriples output of the multiplication
     vector<FieldType> v(numOfTriples);//vector holding the 4*numOfTriples output of the multiplication
+    vector<FieldType> vr(1);//vector holding the 4*numOfTriples output of the multiplication
+
+
+
+    for(int k=0; k<numOfTriples; k++){
+        zTag[k] = z[k] + randomElements[k]*x[k];
+        yTag[k] = y[k]+randomElements[k];
+
+    }
+
 
     //first generate numOfTriples random shares
     generateRandomSharesWithCheck(numOfTriples, r);
@@ -1757,30 +1777,51 @@ bool ProtocolParty<FieldType>::verificationBatched(FieldType *x, FieldType *y, F
     for(int k=0; k<numOfTriples; k++){
 
         firstMult[k*2] = rx[k];//the row assignment (look at the paper)
-        secondMult[k*2] = y[k];
+        secondMult[k*2] = yTag[k];
 
         firstMult[k*2+1] = r[k];
-        secondMult[k*2+1] = z[k];
+        secondMult[k*2+1] = zTag[k];
 
     }
 
     //run semi-honest multiplication on x and r
     DNHonestMultiplication(firstMult.data(), secondMult.data(),outputMult, numOfTriples*2);
 
+
     //compute the output share to check
     FieldType vk;
-    FieldType VShare;
+
     for(int k=0; k<numOfTriples; k++){
-        vk = outputMult[2*k + 1]  - outputMult[2*k];
-        VShare += vk*randomElements[k];
+        v[k] = outputMult[2*k + 1]  - outputMult[2*k];
+
+    }
+
+    //first generate the common aes key
+    auto key = generateCommonKey();
+    vector<FieldType> randomElementsForFinalStage(numOfTriples);
+    generatePseudoRandomElements(key, randomElementsForFinalStage, numOfTriples);
+
+
+    FieldType Vshare;
+    for(int k=0; k<numOfTriples; k++){
+        Vshare = v[k]*randomElementsForFinalStage[k];
 
     }
 
 
+    vector<FieldType> randomElemet(1);
+    //first generate numOfTriples random shares
+    generateRandomSharesWithCheck(1, randomElemet);
+    //run semi-honest multiplication on R and V
+    DNHonestMultiplication(&Vshare, randomElemet.data(),vr, 1);
+
+
+    comparingViews();
+
     //open [V]
     vector<FieldType> shareArr(1);
     vector<FieldType> secretArr(1);
-    shareArr[0] = VShare;
+    shareArr[0] = vr[0];
 
     openShare(1,shareArr,secretArr);
 
@@ -1791,6 +1832,69 @@ bool ProtocolParty<FieldType>::verificationBatched(FieldType *x, FieldType *y, F
         return true;
 
 }
+
+
+//
+//template <class FieldType>
+//bool ProtocolParty<FieldType>::verificationBatched(FieldType *x, FieldType *y, FieldType *z,
+//                                                   FieldType * randomElements, int numOfTriples){
+//
+//
+//
+//    vector<FieldType> r(numOfTriples);//vector holding the random shares generated
+//    vector<FieldType> rx(numOfTriples);//vector holding the multiplication of x and r
+//    vector<FieldType> firstMult(2*numOfTriples);//vector some computations
+//    vector<FieldType> secondMult(2*numOfTriples);//vector some computations
+//    vector<FieldType> outputMult(2*numOfTriples);//vector holding the 4*numOfTriples output of the multiplication
+//    vector<FieldType> v(numOfTriples);//vector holding the 4*numOfTriples output of the multiplication
+//
+//    //first generate numOfTriples random shares
+//    generateRandomSharesWithCheck(numOfTriples, r);
+//
+//
+//    //run semi-honest multiplication on x and r
+//    DNHonestMultiplication(x, r.data(),rx, numOfTriples);
+//
+//    //prepare the 4k pairs for multiplication
+//    for(int k=0; k<numOfTriples; k++){
+//
+//        firstMult[k*2] = rx[k];//the row assignment (look at the paper)
+//        secondMult[k*2] = y[k];
+//
+//        firstMult[k*2+1] = r[k];
+//        secondMult[k*2+1] = z[k];
+//
+//    }
+//
+//    //run semi-honest multiplication on x and r
+//    DNHonestMultiplication(firstMult.data(), secondMult.data(),outputMult, numOfTriples*2);
+//
+//    //compute the output share to check
+//    FieldType vk;
+//    FieldType VShare;
+//    for(int k=0; k<numOfTriples; k++){
+//        vk = outputMult[2*k + 1]  - outputMult[2*k];
+//        VShare += vk*randomElements[k];
+//
+//    }
+//
+//
+//    //open [V]
+//    vector<FieldType> shareArr(1);
+//    vector<FieldType> secretArr(1);
+//    shareArr[0] = VShare;
+//
+//    openShare(1,shareArr,secretArr);
+//
+//    //check that V=0
+//    if(secretArr[0] != *field->GetZero())
+//        return false;
+//    else
+//        return true;
+//
+//}
+
+
 
 
 
