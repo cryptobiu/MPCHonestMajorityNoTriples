@@ -40,6 +40,8 @@ private:
      */
 
     int N, M, T, m_partyId;
+    int times; //number of times to run the run function
+    int iteration; //number of the current iteration
     VDM<FieldType> matrix_vand;
     vector<FieldType> firstRowVandInverse;
     TemplateField<FieldType> *field;
@@ -105,19 +107,13 @@ public:
 
     int counter = 0;
 
-/**
-     * This method runs the protocol:
-     * 1. Initialization Phase
-     * 2. Preparation Phase
-     * 3. Input Phase
-     * 4. Computation Phase
-     * 5. Verification Phase
-     * 6. Output Phase
-     */
-    void run(int iteration);
-
     /**
-     * Executes the protocol.
+     * This method runs the protocol:
+     * 1. Preparation Phase
+     * 2. Input Phase
+     * 3. Computation Phase
+     * 4. Verification Phase
+     * 5. Output Phase
      */
     void run() override;
 
@@ -130,8 +126,19 @@ public:
         return true;
     }
 
+    /**
+     * This method runs the protocol:
+     * Preparation Phase
+     */
     void runOffline() override;
 
+    /**
+     * This method runs the protocol:
+     * Input Phase
+     * Computation Phase
+     * Verification Phase
+     * Output Phase
+     */
     void runOnline() override;
 
     /**
@@ -281,7 +288,7 @@ template <class FieldType>
 ProtocolParty<FieldType>::ProtocolParty(int argc, char* argv[]) : Protocol("MPCHonestMajorityNoTriples", argc, argv)
 {
     string circuitFile = arguments["circuitFile"];
-    int times = stoi(arguments["internalIterationsNumber"]);
+    this->times = stoi(arguments["internalIterationsNumber"]);
     string fieldType = arguments["fieldType"];
     m_partyId = stoi(arguments["partyID"]);
     int n = stoi(arguments["partiesNumber"]);
@@ -329,7 +336,7 @@ ProtocolParty<FieldType>::ProtocolParty(int argc, char* argv[]) : Protocol("MPCH
 
     MPCCommunication comm;
 
-    parties = comm.setCommunication(io_service, m_partyId-1, N, arguments["partiesFile"]);
+    parties = comm.setCommunication(io_service, m_partyId, N, arguments["partiesFile"]);
 
     string tmp = "init times";
     //cout<<"before sending any data"<<endl;
@@ -379,11 +386,29 @@ void ProtocolParty<FieldType>::readMyInputs()
 }
 
 template <class FieldType>
-void ProtocolParty<FieldType>::run(int iteration) {
+void ProtocolParty<FieldType>::run() {
 
+    for (int i=0; i<times; i++){
+        auto t1start = high_resolution_clock::now();
+
+        iteration = i;
+        runOffline();
+        runOnline();
+
+        auto t2end = high_resolution_clock::now();
+        auto duration = duration_cast<milliseconds>(t2end-t1start).count();
+        protocolTimer->totalTimeArr[iteration] = duration;
+
+        cout << "time in milliseconds for protocol: " << duration << endl;
+    }
+
+
+}
+
+template <class FieldType>
+void ProtocolParty<FieldType>::runOffline() {
     shareIndex = numOfInputGates;
 
-    auto t1start = high_resolution_clock::now();
     auto t1 = high_resolution_clock::now();
     if(preparationPhase() == false) {
         if(flag_print) {
@@ -402,23 +427,27 @@ void ProtocolParty<FieldType>::run(int iteration) {
         cout << "time in milliseconds preparationPhase: " << duration << endl;
     }
     protocolTimer->preparationPhaseArr[iteration] =duration;
+}
+
+template <class FieldType>
+void ProtocolParty<FieldType>::runOnline() {
 
 
-    t1 = high_resolution_clock::now();
+    auto t1 = high_resolution_clock::now();
 
     inputPhase();
     inputVerification();
 
-    t2 = high_resolution_clock::now();
+    auto t2 = high_resolution_clock::now();
 
-    duration = duration_cast<milliseconds>(t2-t1).count();
+    auto duration = duration_cast<milliseconds>(t2-t1).count();
     protocolTimer->inputPreparationArr[iteration] = duration;
     if(flag_print_timings) {
         cout << "time in milliseconds inputPhase: " << duration << endl;
     }
 
 
-     t1 = high_resolution_clock::now();
+    t1 = high_resolution_clock::now();
 
     computationPhase(m);
 
@@ -468,25 +497,6 @@ void ProtocolParty<FieldType>::run(int iteration) {
     if(flag_print_timings) {
         cout << "time in milliseconds outputPhase: " << duration << endl;
     }
-    auto t2end = high_resolution_clock::now();
-
-    duration = duration_cast<milliseconds>(t2end-t1start).count();
-    protocolTimer->totalTimeArr[iteration] = duration;
-
-    cout << "time in milliseconds for protocol: " << duration << endl;
-
-}
-
-template <class FieldType>
-void ProtocolParty<FieldType>::run() {
-}
-
-template <class FieldType>
-void ProtocolParty<FieldType>::runOffline() {
-}
-
-template <class FieldType>
-void ProtocolParty<FieldType>::runOnline() {
 
 }
 
