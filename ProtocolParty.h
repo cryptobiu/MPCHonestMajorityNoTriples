@@ -547,9 +547,9 @@ void ProtocolParty<FieldType>::inputPhase()
     {
         if(circuit.getGates()[k].gateType == INPUT) {
             //get the expected sized from the other parties
-            sizes[circuit.getGates()[k].party]++;
+            sizes[circuit.getGates()[k].party - 1]++;
 
-            if (circuit.getGates()[k].party == m_partyId) {
+            if (circuit.getGates()[k].party - 1 == m_partyId) {
                 auto input = myInputs[index];
                 index++;
                 if (flag_print) {
@@ -617,8 +617,8 @@ void ProtocolParty<FieldType>::inputPhase()
     {
         if(circuit.getGates()[k].gateType == INPUT)
         {
-            auto share = recBufElements[circuit.getGates()[k].party][counters[circuit.getGates()[k].party]];
-            counters[circuit.getGates()[k].party] += 1;
+            auto share = recBufElements[circuit.getGates()[k].party - 1][counters[circuit.getGates()[k].party - 1]];
+            counters[circuit.getGates()[k].party - 1] += 1;
             gateShareArr[circuit.getGates()[k].output] = share; // set the share sent from the party owning the input
 
         }
@@ -1933,7 +1933,7 @@ void ProtocolParty<FieldType>::outputPhase()
         if(circuit.getGates()[k].gateType == OUTPUT)
         {
             // send to party (which need this gate) your share for this gate
-            sendBufsElements[circuit.getGates()[k].party].push_back(gateShareArr[circuit.getGates()[k].input1]);
+            sendBufsElements[circuit.getGates()[k].party - 1].push_back(gateShareArr[circuit.getGates()[k].input1]);
         }
     }
 
@@ -1957,7 +1957,7 @@ void ProtocolParty<FieldType>::outputPhase()
     if(flag_print) {
         cout << "endnend" << endl;}
     for(int k=M-numOfOutputGates ; k < M; k++) {
-        if(circuit.getGates()[k].gateType == OUTPUT && circuit.getGates()[k].party == m_partyId)
+        if(circuit.getGates()[k].gateType == OUTPUT && circuit.getGates()[k].party - 1 == m_partyId)
         {
             for(int i=0; i < N; i++) {
 
