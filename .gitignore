@@ -1,7 +1,6 @@
-.gitignore
-.idea/vcs.xml
+.idea/
 *.csv
-CMakeFiles/*
+CMakeFiles/
 CMakeCache.txt
 cmake-build-debug
 cmake_install.cmake
