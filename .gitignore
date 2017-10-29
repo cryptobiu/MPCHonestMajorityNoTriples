@@ -1,0 +1,10 @@
+.gitignore
+.idea/vcs.xml
+*.csv
+CMakeFiles/*
+CMakeCache.txt
+cmake-build-debug
+cmake_install.cmake
+Makefile
+MPCHonestMajorityNoTriples*
+callgrind.out.*
