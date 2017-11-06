@@ -4,8 +4,9 @@
 #include <stdlib.h>
 
 #include <libscapi/include/primitives/Matrix.hpp>
-#include <libscapi/include/CryptoInfra/Protocol.hpp>
-#include <libscapi/include/circuits/arithmeticCircuit/ArithmeticCircuit.hpp>
+#include <libscapi/include/cryptoInfra/Protocol.hpp>
+#include <libscapi/include/circuits/ArithmeticCircuit.hpp>
+#include <libscapi/include/infra/Measurement.hpp>
 #include <vector>
 #include <bitset>
 #include <iostream>
@@ -42,6 +43,8 @@ private:
     int N, M, T, m_partyId;
     int times; //number of times to run the run function
     int iteration; //number of the current iteration
+
+    Measurement timer;
     VDM<FieldType> matrix_vand;
     vector<FieldType> firstRowVandInverse;
     TemplateField<FieldType> *field;
@@ -55,7 +58,7 @@ private:
 
     string s;
     int numOfInputGates, numOfOutputGates;
-    string inputsFile, outputFile, ADDRESS;
+    string inputsFile, outputFile;
     vector<FieldType> beta;
     HIM<FieldType> matrix_for_interpolate;
     HIM<FieldType> matrix_for_t;
@@ -68,21 +71,11 @@ private:
 
     HIM<FieldType> m;
 
-    vector<FieldType> randomABShares;//a, b random shares
-    vector<FieldType> c;//a vector of a*b shares
-
-
     boost::asio::io_service io_service;
     ArithmeticCircuit circuit;
     vector<FieldType> gateValueArr; // the value of the gate (for my input and output gates)
     vector<FieldType> gateShareArr; // my share of the gate (for all gates)
     vector<FieldType> alpha; // N distinct non-zero field elements
-
-    vector<FieldType> sharingBufTElements; // prepared T-sharings (my shares)
-    vector<FieldType> sharingBuf2TElements; // prepared 2T-sharings (my shares)
-
-
-    int shareIndex;
 
     vector<int> myInputs;
 
@@ -297,6 +290,9 @@ ProtocolParty<FieldType>::ProtocolParty(int argc, char* argv[]) : Protocol("MPCH
 
     this->protocolTimer = new ProtocolTimer(times, outputTimerFileName);
 
+    vector<string> subTaskNames{"Offline", "preparationPhase", "Online", "inputPhase", "ComputePhase", "VerificationPhase", "outputPhase"};
+    timer = Measurement("MPCHonestMajorityNoTriples", m_partyId, N, times, subTaskNames);
+
     if(fieldType.compare("ZpMersenne") == 0) {
         field = new TemplateField<FieldType>(2147483647);
     } else if(fieldType.compare("ZpMersenne61") == 0) {
@@ -326,7 +322,6 @@ ProtocolParty<FieldType>::ProtocolParty(int argc, char* argv[]) : Protocol("MPCH
     numOfInputGates = circuit.getNrOfInputGates();
     numOfOutputGates = circuit.getNrOfOutputGates();
     myInputs.resize(numOfInputGates);
-    shareIndex = numOfInputGates;
     counter = 0;
 
 
@@ -388,12 +383,15 @@ void ProtocolParty<FieldType>::readMyInputs()
 template <class FieldType>
 void ProtocolParty<FieldType>::run() {
 
-    for (int i=0; i<times; i++){
-        auto t1start = high_resolution_clock::now();
+    for (iteration=0; iteration<times; iteration++){
 
-        iteration = i;
+        auto t1start = high_resolution_clock::now();
+        timer.startSubTask();
         runOffline();
+        timer.endSubTask(0, iteration);
+        timer.startSubTask();
         runOnline();
+        timer.endSubTask(2, iteration);
 
         auto t2end = high_resolution_clock::now();
         auto duration = duration_cast<milliseconds>(t2end-t1start).count();
@@ -407,9 +405,8 @@ void ProtocolParty<FieldType>::run() {
 
 template <class FieldType>
 void ProtocolParty<FieldType>::runOffline() {
-    shareIndex = numOfInputGates;
-
     auto t1 = high_resolution_clock::now();
+    timer.startSubTask();
     if(preparationPhase() == false) {
         if(flag_print) {
             cout << "cheating!!!" << '\n';}
@@ -419,7 +416,7 @@ void ProtocolParty<FieldType>::runOffline() {
         if(flag_print) {
             cout << "no cheating!!!" << '\n' << "finish Preparation Phase" << '\n';}
     }
-
+    timer.endSubTask(1, iteration);
     auto t2 = high_resolution_clock::now();
 
     auto duration = duration_cast<milliseconds>(t2-t1).count();
@@ -432,13 +429,11 @@ void ProtocolParty<FieldType>::runOffline() {
 template <class FieldType>
 void ProtocolParty<FieldType>::runOnline() {
 
-cout<<"in online"<<endl;
     auto t1 = high_resolution_clock::now();
-
+    timer.startSubTask();
     inputPhase();
-    cout<<"after input phase"<<endl;
     inputVerification();
-
+    timer.endSubTask(3, iteration);
     auto t2 = high_resolution_clock::now();
 
     auto duration = duration_cast<milliseconds>(t2-t1).count();
@@ -449,9 +444,9 @@ cout<<"in online"<<endl;
 
 
     t1 = high_resolution_clock::now();
-
+    timer.startSubTask();
     computationPhase(m);
-
+    timer.endSubTask(4, iteration);
     t2 = high_resolution_clock::now();
 
     duration = duration_cast<milliseconds>(t2-t1).count();
@@ -464,9 +459,9 @@ cout<<"in online"<<endl;
     }
 
     t1 = high_resolution_clock::now();
-
+    timer.startSubTask();
     verificationPhase();
-
+    timer.endSubTask(5, iteration);
     t2 = high_resolution_clock::now();
     duration = duration_cast<milliseconds>(t2-t1).count();
     protocolTimer->verificationPhaseArr[iteration] = duration;
@@ -475,21 +470,10 @@ cout<<"in online"<<endl;
         cout << "time in milliseconds verificationPhase: " << duration << endl;
     }
 
-    //t1 = high_resolution_clock::now();
-    //comparingViews();
-    //t2 = high_resolution_clock::now();
-    //duration = duration_cast<milliseconds>(t2-t1).count();
-    //protocolTimer->comparingViewsPhaseArr[iteration] = duration;
-
-//    if(flag_print_timings) {
-//        cout << "time in milliseconds comparing views: " << duration << endl;
-//    }
-
-
     t1 = high_resolution_clock::now();
-
+    timer.startSubTask();
     outputPhase();
-
+    timer.endSubTask(6, iteration);
     t2 = high_resolution_clock::now();
 
     duration = duration_cast<milliseconds>(t2-t1).count();
