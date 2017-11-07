@@ -94,24 +94,6 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/meital/ClionProjects/MPCHonestMajorityNoTriples/AES_PRG.cpp">
-			<Option target="MPCHonestMajorityNoTriples"/>
-		</Unit>
-		<Unit filename="/home/meital/ClionProjects/MPCHonestMajorityNoTriples/AES_PRG.h">
-			<Option target="MPCHonestMajorityNoTriples"/>
-		</Unit>
-		<Unit filename="/home/meital/ClionProjects/MPCHonestMajorityNoTriples/ArithmeticCircuit.cpp">
-			<Option target="MPCHonestMajorityNoTriples"/>
-		</Unit>
-		<Unit filename="/home/meital/ClionProjects/MPCHonestMajorityNoTriples/ArithmeticCircuit.h">
-			<Option target="MPCHonestMajorityNoTriples"/>
-		</Unit>
-		<Unit filename="/home/meital/ClionProjects/MPCHonestMajorityNoTriples/HIM.cpp">
-			<Option target="MPCHonestMajorityNoTriples"/>
-		</Unit>
-		<Unit filename="/home/meital/ClionProjects/MPCHonestMajorityNoTriples/HIM.h">
-			<Option target="MPCHonestMajorityNoTriples"/>
-		</Unit>
 		<Unit filename="/home/meital/ClionProjects/MPCHonestMajorityNoTriples/HashAbstract.h">
 			<Option target="MPCHonestMajorityNoTriples"/>
 		</Unit>
@@ -121,16 +103,10 @@
 		<Unit filename="/home/meital/ClionProjects/MPCHonestMajorityNoTriples/HashEncrypt.h">
 			<Option target="MPCHonestMajorityNoTriples"/>
 		</Unit>
-		<Unit filename="/home/meital/ClionProjects/MPCHonestMajorityNoTriples/MPCCommunication.cpp">
+		<Unit filename="/home/meital/ClionProjects/MPCHonestMajorityNoTriples/ProtocolParty.cpp">
 			<Option target="MPCHonestMajorityNoTriples"/>
 		</Unit>
-		<Unit filename="/home/meital/ClionProjects/MPCHonestMajorityNoTriples/MPCCommunication.h">
-			<Option target="MPCHonestMajorityNoTriples"/>
-		</Unit>
-		<Unit filename="/home/meital/ClionProjects/MPCHonestMajorityNoTriples/Protocol.cpp">
-			<Option target="MPCHonestMajorityNoTriples"/>
-		</Unit>
-		<Unit filename="/home/meital/ClionProjects/MPCHonestMajorityNoTriples/Protocol.h">
+		<Unit filename="/home/meital/ClionProjects/MPCHonestMajorityNoTriples/ProtocolParty.h">
 			<Option target="MPCHonestMajorityNoTriples"/>
 		</Unit>
 		<Unit filename="/home/meital/ClionProjects/MPCHonestMajorityNoTriples/ProtocolTimer.cpp">
@@ -139,37 +115,16 @@
 		<Unit filename="/home/meital/ClionProjects/MPCHonestMajorityNoTriples/ProtocolTimer.h">
 			<Option target="MPCHonestMajorityNoTriples"/>
 		</Unit>
-		<Unit filename="/home/meital/ClionProjects/MPCHonestMajorityNoTriples/TGate.h">
-			<Option target="MPCHonestMajorityNoTriples"/>
-		</Unit>
 		<Unit filename="/home/meital/ClionProjects/MPCHonestMajorityNoTriples/TemplateField.cpp">
 			<Option target="MPCHonestMajorityNoTriples"/>
 		</Unit>
 		<Unit filename="/home/meital/ClionProjects/MPCHonestMajorityNoTriples/TemplateField.h">
 			<Option target="MPCHonestMajorityNoTriples"/>
 		</Unit>
-		<Unit filename="/home/meital/ClionProjects/MPCHonestMajorityNoTriples/VDM.cpp">
-			<Option target="MPCHonestMajorityNoTriples"/>
-		</Unit>
-		<Unit filename="/home/meital/ClionProjects/MPCHonestMajorityNoTriples/VDM.h">
-			<Option target="MPCHonestMajorityNoTriples"/>
-		</Unit>
 		<Unit filename="/home/meital/ClionProjects/MPCHonestMajorityNoTriples/ZpKaratsubaElement.cpp">
 			<Option target="MPCHonestMajorityNoTriples"/>
 		</Unit>
 		<Unit filename="/home/meital/ClionProjects/MPCHonestMajorityNoTriples/ZpKaratsubaElement.h">
-			<Option target="MPCHonestMajorityNoTriples"/>
-		</Unit>
-		<Unit filename="/home/meital/ClionProjects/MPCHonestMajorityNoTriples/ZpMersenneIntElement.cpp">
-			<Option target="MPCHonestMajorityNoTriples"/>
-		</Unit>
-		<Unit filename="/home/meital/ClionProjects/MPCHonestMajorityNoTriples/ZpMersenneIntElement.h">
-			<Option target="MPCHonestMajorityNoTriples"/>
-		</Unit>
-		<Unit filename="/home/meital/ClionProjects/MPCHonestMajorityNoTriples/ZpMersenneLongElement.cpp">
-			<Option target="MPCHonestMajorityNoTriples"/>
-		</Unit>
-		<Unit filename="/home/meital/ClionProjects/MPCHonestMajorityNoTriples/ZpMersenneLongElement.h">
 			<Option target="MPCHonestMajorityNoTriples"/>
 		</Unit>
 		<Unit filename="/home/meital/ClionProjects/MPCHonestMajorityNoTriples/main.cpp">

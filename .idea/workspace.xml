@@ -12,8 +12,37 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5ceb19cd-73f8-47f6-b658-9a5f8f8d3d63" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeFiles/MPCHonestMajorityNoTriples.dir/Protocol.cpp.o" afterPath="$PROJECT_DIR$/CMakeFiles/MPCHonestMajorityNoTriples.dir/Protocol.cpp.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeFiles/MPCHonestMajorityNoTriples.dir/main.cpp.o" afterPath="$PROJECT_DIR$/CMakeFiles/MPCHonestMajorityNoTriples.dir/main.cpp.o" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/CMakeFiles/3.5.2/CMakeCCompiler.cmake" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/CMakeFiles/3.5.2/CMakeCXXCompiler.cmake" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/CMakeFiles/3.5.2/CMakeDetermineCompilerABI_C.bin" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/CMakeFiles/3.5.2/CMakeDetermineCompilerABI_CXX.bin" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/CMakeFiles/3.5.2/CMakeSystem.cmake" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/CMakeFiles/3.5.2/CompilerIdC/CMakeCCompilerId.c" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/CMakeFiles/3.5.2/CompilerIdC/a.out" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/CMakeFiles/3.5.2/CompilerIdCXX/CMakeCXXCompilerId.cpp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/CMakeFiles/3.5.2/CompilerIdCXX/a.out" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/CMakeFiles/3.7.2/CMakeCCompiler.cmake" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/CMakeFiles/3.7.2/CMakeCXXCompiler.cmake" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/CMakeFiles/3.7.2/CMakeDetermineCompilerABI_C.bin" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/CMakeFiles/3.7.2/CMakeDetermineCompilerABI_CXX.bin" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/CMakeFiles/3.7.2/CMakeSystem.cmake" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/CMakeFiles/3.7.2/CompilerIdC/CMakeCCompilerId.c" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/CMakeFiles/3.7.2/CompilerIdC/a.out" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/CMakeFiles/3.7.2/CompilerIdCXX/CMakeCXXCompilerId.cpp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/CMakeFiles/3.7.2/CompilerIdCXX/a.out" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/CMakeFiles/MPCHonestMajorityNoTriples.dir/AES_PRG.cpp.o" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/CMakeFiles/MPCHonestMajorityNoTriples.dir/ArithmeticCircuit.cpp.o" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/CMakeFiles/MPCHonestMajorityNoTriples.dir/HIM.cpp.o" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/CMakeFiles/MPCHonestMajorityNoTriples.dir/MPCCommunication.cpp.o" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/CMakeFiles/MPCHonestMajorityNoTriples.dir/Protocol.cpp.o" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/CMakeFiles/MPCHonestMajorityNoTriples.dir/VDM.cpp.o" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/CMakeFiles/MPCHonestMajorityNoTriples.dir/ZpMersenneIntElement.cpp.o" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/CMakeFiles/MPCHonestMajorityNoTriples.dir/ZpMersenneLongElement.cpp.o" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/CMakeFiles/MPCHonestMajorityNoTriples.dir/main.cpp.o" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeFiles/MPCHonestMajorityNoTriples.dir/HashEncrypt.cpp.o" afterPath="$PROJECT_DIR$/CMakeFiles/MPCHonestMajorityNoTriples.dir/HashEncrypt.cpp.o" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeFiles/MPCHonestMajorityNoTriples.dir/ProtocolTimer.cpp.o" afterPath="$PROJECT_DIR$/CMakeFiles/MPCHonestMajorityNoTriples.dir/ProtocolTimer.cpp.o" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeFiles/MPCHonestMajorityNoTriples.dir/TemplateField.cpp.o" afterPath="$PROJECT_DIR$/CMakeFiles/MPCHonestMajorityNoTriples.dir/TemplateField.cpp.o" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeFiles/MPCHonestMajorityNoTriples.dir/ZpKaratsubaElement.cpp.o" afterPath="$PROJECT_DIR$/CMakeFiles/MPCHonestMajorityNoTriples.dir/ZpKaratsubaElement.cpp.o" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MPCHonestMajorityNoTriples" afterPath="$PROJECT_DIR$/MPCHonestMajorityNoTriples" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/1000000G_1000000MG_333In_50Out_20D_OutputOne3P.txtTimes1ZpMensenne61HIMDNBatch.csv" afterPath="$PROJECT_DIR$/1000000G_1000000MG_333In_50Out_20D_OutputOne3P.txtTimes1ZpMensenne61HIMDNBatch.csv" />
@@ -21,17 +50,28 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/1000000G_1000000MG_333In_50Out_20D_OutputOne3P.txtTimes3ZpMensenne61HIMDNBatch.csv" afterPath="$PROJECT_DIR$/1000000G_1000000MG_333In_50Out_20D_OutputOne3P.txtTimes3ZpMensenne61HIMDNBatch.csv" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeCache.txt" afterPath="$PROJECT_DIR$/CMakeCache.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeFiles/CMakeDirectoryInformation.cmake" afterPath="$PROJECT_DIR$/CMakeFiles/CMakeDirectoryInformation.cmake" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeFiles/CMakeError.log" afterPath="$PROJECT_DIR$/CMakeFiles/CMakeError.log" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeFiles/CMakeOutput.log" afterPath="$PROJECT_DIR$/CMakeFiles/CMakeOutput.log" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeFiles/MPCHonestMajorityNoTriples.dir/CXX.includecache" afterPath="$PROJECT_DIR$/CMakeFiles/MPCHonestMajorityNoTriples.dir/CXX.includecache" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeFiles/MPCHonestMajorityNoTriples.dir/DependInfo.cmake" afterPath="$PROJECT_DIR$/CMakeFiles/MPCHonestMajorityNoTriples.dir/DependInfo.cmake" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeFiles/MPCHonestMajorityNoTriples.dir/build.make" afterPath="$PROJECT_DIR$/CMakeFiles/MPCHonestMajorityNoTriples.dir/build.make" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeFiles/MPCHonestMajorityNoTriples.dir/cmake_clean.cmake" afterPath="$PROJECT_DIR$/CMakeFiles/MPCHonestMajorityNoTriples.dir/cmake_clean.cmake" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeFiles/MPCHonestMajorityNoTriples.dir/depend.internal" afterPath="$PROJECT_DIR$/CMakeFiles/MPCHonestMajorityNoTriples.dir/depend.internal" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeFiles/MPCHonestMajorityNoTriples.dir/depend.make" afterPath="$PROJECT_DIR$/CMakeFiles/MPCHonestMajorityNoTriples.dir/depend.make" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeFiles/MPCHonestMajorityNoTriples.dir/flags.make" afterPath="$PROJECT_DIR$/CMakeFiles/MPCHonestMajorityNoTriples.dir/flags.make" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeFiles/MPCHonestMajorityNoTriples.dir/link.txt" afterPath="$PROJECT_DIR$/CMakeFiles/MPCHonestMajorityNoTriples.dir/link.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeFiles/MPCHonestMajorityNoTriples.dir/progress.make" afterPath="$PROJECT_DIR$/CMakeFiles/MPCHonestMajorityNoTriples.dir/progress.make" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeFiles/Makefile.cmake" afterPath="$PROJECT_DIR$/CMakeFiles/Makefile.cmake" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeFiles/Makefile2" afterPath="$PROJECT_DIR$/CMakeFiles/Makefile2" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeFiles/TargetDirectories.txt" afterPath="$PROJECT_DIR$/CMakeFiles/TargetDirectories.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeFiles/clion-environment.txt" afterPath="$PROJECT_DIR$/CMakeFiles/clion-environment.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeFiles/feature_tests.c" afterPath="$PROJECT_DIR$/CMakeFiles/feature_tests.c" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeFiles/progress.marks" afterPath="$PROJECT_DIR$/CMakeFiles/progress.marks" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MPCHonestMajorityNoTriples.cbp" afterPath="$PROJECT_DIR$/MPCHonestMajorityNoTriples.cbp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Makefile" afterPath="$PROJECT_DIR$/Makefile" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Protocol.h" afterPath="$PROJECT_DIR$/Protocol.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.cpp" afterPath="$PROJECT_DIR$/main.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/run_protocol.sh" afterPath="$PROJECT_DIR$/run_protocol.sh" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtocolParty.h" afterPath="$PROJECT_DIR$/ProtocolParty.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtocolTimer.cpp" afterPath="$PROJECT_DIR$/ProtocolTimer.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtocolTimer.h" afterPath="$PROJECT_DIR$/ProtocolTimer.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <ignored path="$PROJECT_DIR$/CMakeFiles/" />
@@ -42,26 +82,22 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="TemplateField.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/TemplateField.cpp">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="95">
               <caret line="5" column="28" lean-forward="false" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="28" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Protocol.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Protocol.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="276">
-              <caret line="263" column="50" lean-forward="false" selection-start-line="263" selection-start-column="50" selection-end-line="263" selection-end-column="50" />
               <folding>
-                <element signature="e#41#60#0" expanded="true" />
+                <marker date="1508225310882" expanded="false" signature="2884:2895" ph="&lt;&gt;" />
+                <marker date="1508225310882" expanded="true" signature="2996:3154" ph="{...}" />
+                <marker date="1508225310882" expanded="false" signature="3157:3168" ph="&lt;&gt;" />
+                <marker date="1508225310882" expanded="true" signature="3241:3486" ph="{...}" />
+                <marker date="1508225310882" expanded="false" signature="3489:3500" ph="&lt;&gt;" />
+                <marker date="1508225310882" expanded="true" signature="3588:3658" ph="{...}" />
+                <marker date="1508225310882" expanded="false" signature="3661:3672" ph="&lt;&gt;" />
+                <marker date="1508225310882" expanded="true" signature="3745:3941" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -80,8 +116,8 @@
       <file leaf-file-name="ProtocolTimer.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ProtocolTimer.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="26" column="20" lean-forward="false" selection-start-line="26" selection-start-column="20" selection-end-line="26" selection-end-column="20" />
+            <state relative-caret-position="399">
+              <caret line="21" column="30" lean-forward="false" selection-start-line="21" selection-start-column="30" selection-end-line="21" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -90,8 +126,8 @@
       <file leaf-file-name="ProtocolTimer.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ProtocolTimer.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="377">
-              <caret line="43" column="44" lean-forward="false" selection-start-line="43" selection-start-column="44" selection-end-line="43" selection-end-column="44" />
+            <state relative-caret-position="95">
+              <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -100,8 +136,8 @@
       <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="17" column="52" lean-forward="false" selection-start-line="17" selection-start-column="52" selection-end-line="17" selection-end-column="52" />
+            <state relative-caret-position="361">
+              <caret line="19" column="50" lean-forward="false" selection-start-line="19" selection-start-column="45" selection-end-line="19" selection-end-column="50" />
               <folding />
             </state>
           </provider>
@@ -117,23 +153,27 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="VDMTranspose.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/VDMTranspose.h">
+      <file leaf-file-name="main.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="95">
+              <caret line="5" column="18" lean-forward="false" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="18" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.cpp" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/main.cpp">
+      <file leaf-file-name="ProtocolParty.h" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/ProtocolParty.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="46" column="16" lean-forward="false" selection-start-line="46" selection-start-column="16" selection-end-line="46" selection-end-column="16" />
+            <state relative-caret-position="-893">
+              <caret line="7" column="35" lean-forward="false" selection-start-line="7" selection-start-column="35" selection-end-line="7" selection-end-column="35" />
               <folding>
-                <element signature="e#1#20#0" expanded="true" />
+                <element signature="e#10208#10225#0" expanded="true" />
+                <element signature="e#12856#12873#0" expanded="true" />
+                <element signature="e#13189#13206#0" expanded="true" />
+                <element signature="e#13683#13700#0" expanded="true" />
+                <element signature="e#14379#14396#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -143,36 +183,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
+      <find>argv[7]</find>
       <find>verificationPhase</find>
-      <find>comparing</find>
-      <find>run</find>
-      <find>run(</find>
-      <find>honestMult</find>
-      <find>mult</find>
-      <find>DNHonestMult</find>
-      <find>processMultiplications</find>
-      <find>protocol-&gt;</find>
-      <find>invok</find>
+      <find>randomElements</find>
+      <find>v</find>
+      <find>r</find>
+      <find>scapi</find>
+      <find>generateCommonKey</find>
+      <find>DN</find>
+      <find>h</find>
+      <find>comparingview</find>
+      <find>comparingv</find>
+      <find>comparingvi</find>
+      <find>comparingViews</find>
+      <find>generateco</find>
       <find>DNHonestMultiplication</find>
-      <find>protocol</find>
-      <find>-&gt;mu</find>
-      <find>2ts</find>
+      <find>generatera</find>
+      <find>numOfRandoms</find>
+      <find>generateRandomShares</find>
+      <find>generateRandomSharesWithCheck</find>
+      <find>verificationb</find>
+      <find>verificationBatched</find>
+      <find>cheating!!!</find>
+      <find>preparationPhase</find>
       <find>offlineDNForMultiplication</find>
       <find>generateRandom2TAndTShares</find>
-      <find>r1</find>
-      <find>broa</find>
-      <find>process</find>
-      <find>sss</find>
-      <find>input</find>
-      <find>generateRandomSharesWithCheck</find>
       <find>batchConsistencyCheckOfShares</find>
       <find>openShare</find>
-      <find>reconstructShare</find>
-      <find>gener</find>
-      <find>verificationBatched</find>
-      <find>Protocol(</find>
-      <find>groupID</find>
-      <find>argv[7]</find>
+      <find>elementto</find>
+      <find>gateValueArr</find>
+      <find>gateShareArr</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -183,10 +223,11 @@
       <list>
         <option value="$PROJECT_DIR$/DNHonestMult.h" />
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
-        <option value="$PROJECT_DIR$/ProtocolTimer.cpp" />
-        <option value="$PROJECT_DIR$/ProtocolTimer.h" />
         <option value="$PROJECT_DIR$/Protocol.h" />
         <option value="$PROJECT_DIR$/main.cpp" />
+        <option value="$PROJECT_DIR$/ProtocolTimer.h" />
+        <option value="$PROJECT_DIR$/ProtocolTimer.cpp" />
+        <option value="$PROJECT_DIR$/ProtocolParty.h" />
       </list>
     </option>
   </component>
@@ -196,11 +237,11 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="65" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="1959" />
     <option name="y" value="-4" />
-    <option name="width" value="1855" />
-    <option name="height" value="1084" />
+    <option name="width" value="1853" />
+    <option name="height" value="1076" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -220,26 +261,22 @@
     <panes>
       <pane id="ProjectPane">
         <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MPCHonestMajorityNoTriples" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MPCHonestMajorityNoTriples" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MPCHonestMajorityNoTriples" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
+          <expand>
+            <path>
+              <item name="MPCHonestMajorityNoTriples" type="dad4c3:CidrFilesViewHelper$MyProjectTreeStructure$1" />
+              <item name="MPCHonestMajorityNoTriples" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="MPCHonestMajorityNoTriples" type="dad4c3:CidrFilesViewHelper$MyProjectTreeStructure$1" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+            </path>
+            <path>
+              <item name="MPCHonestMajorityNoTriples" type="dad4c3:CidrFilesViewHelper$MyProjectTreeStructure$1" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Header Search Paths" type="70bed36:NamedLibraryElementNode" />
+            </path>
+          </expand>
+          <select />
         </subPane>
       </pane>
     </panes>
@@ -261,6 +298,24 @@
     </option>
   </component>
   <component name="RunManager" selected="Application.MPCHonestMajorityNoTriples">
+    <configuration name="Build All" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" CONFIG_NAME="Debug" EXPLICIT_BUILD_TARGET_NAME="all">
+      <envs />
+    </configuration>
+    <configuration name="MPCHonestMajorityNoTriples" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="1 3 /home/meital/ClionProjects/MPCHonestMajorityNoTriples/inputs333.txt /home/meital/ClionProjects/MPCHonestMajorityNoTriples/1000000G_1000000MG_333In_50Out_20D_OutputOne3P.txt ZpMensenne61 HIM DN Batch " PASS_PARENT_ENVS_2="true" PROJECT_NAME="MPCHonestMajorityNoTriples" TARGET_NAME="MPCHonestMajorityNoTriples" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="MPCHonestMajorityNoTriples" RUN_TARGET_NAME="MPCHonestMajorityNoTriples">
+      <envs />
+    </configuration>
+    <configuration default="true" type="js.build_tools.grunt" factoryName="Grunt.js">
+      <node-interpreter value="project" />
+      <envs />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
+    </configuration>
     <configuration default="true" type="CLion_Remote" factoryName="GDB Remote Debug" remoteCommand="" symbolFile="" sysroot="">
       <method />
     </configuration>
@@ -356,12 +411,6 @@
       <JdkChoice value="FROM_MODULE" />
       <method />
     </configuration>
-    <configuration default="true" type="js.build_tools.grunt" factoryName="Grunt.js">
-      <method />
-    </configuration>
-    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
-      <method />
-    </configuration>
     <configuration default="true" type="js.build_tools.npm" factoryName="npm">
       <command value="run" />
       <scripts />
@@ -435,14 +484,6 @@
       <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method />
     </configuration>
-    <configuration default="false" name="Build All" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" CONFIG_NAME="Debug" EXPLICIT_BUILD_TARGET_NAME="all">
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="MPCHonestMajorityNoTriples" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="1 3 /home/meital/ClionProjects/MPCHonestMajorityNoTriples/inputs333.txt /home/meital/ClionProjects/MPCHonestMajorityNoTriples/1000000G_1000000MG_333In_50Out_20D_OutputOne3P.txt ZpMensenne61 HIM DN Batch " PASS_PARENT_ENVS_2="true" PROJECT_NAME="MPCHonestMajorityNoTriples" TARGET_NAME="MPCHonestMajorityNoTriples" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="MPCHonestMajorityNoTriples" RUN_TARGET_NAME="MPCHonestMajorityNoTriples">
-      <envs />
-      <method />
-    </configuration>
     <list size="2">
       <item index="0" class="java.lang.String" itemvalue="Application.Build All" />
       <item index="1" class="java.lang.String" itemvalue="Application.MPCHonestMajorityNoTriples" />
@@ -458,40 +499,47 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1505811502293</updated>
-      <workItem from="1505811503589" duration="37254000" />
+      <workItem from="1505811503589" duration="39066000" />
+      <workItem from="1508236589752" duration="1230000" />
+      <workItem from="1508314134576" duration="16000" />
+      <workItem from="1508821148047" duration="18193000" />
+      <workItem from="1508991102420" duration="8133000" />
+      <workItem from="1509427363683" duration="1819000" />
+      <workItem from="1509449137588" duration="603000" />
+      <workItem from="1509514320154" duration="8537000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="37254000" />
+    <option name="totallyTimeSpent" value="77597000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="65" y="-4" width="1855" height="1084" extended-state="6" />
+    <frame x="1985" y="-4" width="1855" height="1084" extended-state="6" />
     <editor active="true" />
     <layout>
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13045882" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.106451616" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32949308" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20860215" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32949308" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1624424" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.05472637" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="processedProjectFiles" value="true" />
+    <option name="version" value="1" />
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -501,65 +549,38 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/TemplateField.h">
+    <entry file="file://$PROJECT_DIR$/ProtocolParty.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="10" column="21" lean-forward="false" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/bin/cmake/share/cmake-3.7/Modules/FindBoost.cmake">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="1453" column="0" lean-forward="false" selection-start-line="1453" selection-start-column="0" selection-end-line="1453" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GRRHonestMult.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/VDMTranspose.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/VDMTranspose.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test_prg.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="27854">
+          <caret line="1466" column="66" lean-forward="false" selection-start-line="1466" selection-start-column="4" selection-end-line="1466" selection-end-column="66" />
           <folding>
-            <element signature="e#0#20#0" expanded="false" />
+            <element signature="e#10208#10225#0" expanded="true" />
+            <element signature="e#12856#12873#0" expanded="true" />
+            <element signature="e#13189#13206#0" expanded="true" />
+            <element signature="e#13683#13700#0" expanded="true" />
+            <element signature="e#14379#14396#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/HIM.h">
+    <entry file="file://$PROJECT_DIR$/TemplateField.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1919">
-          <caret line="109" column="25" lean-forward="false" selection-start-line="109" selection-start-column="25" selection-end-line="109" selection-end-column="25" />
-          <folding />
+        <state relative-caret-position="95">
+          <caret line="5" column="28" lean-forward="false" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="28" />
+          <folding>
+            <marker date="1508225310882" expanded="false" signature="2884:2895" ph="&lt;&gt;" />
+            <marker date="1508225310882" expanded="true" signature="2996:3154" ph="{...}" />
+            <marker date="1508225310882" expanded="false" signature="3157:3168" ph="&lt;&gt;" />
+            <marker date="1508225310882" expanded="true" signature="3241:3486" ph="{...}" />
+            <marker date="1508225310882" expanded="false" signature="3489:3500" ph="&lt;&gt;" />
+            <marker date="1508225310882" expanded="true" signature="3588:3658" ph="{...}" />
+            <marker date="1508225310882" expanded="false" signature="3661:3672" ph="&lt;&gt;" />
+            <marker date="1508225310882" expanded="true" signature="3745:3941" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/HIM.cpp">
+    <entry file="file://$PROJECT_DIR$/ZpKaratsubaElement.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -567,10 +588,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Protocol.cpp">
+    <entry file="file://$PROJECT_DIR$/ProtocolTimer.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="399">
+          <caret line="21" column="30" lean-forward="false" selection-start-line="21" selection-start-column="30" selection-end-line="21" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProtocolTimer.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="361">
+          <caret line="19" column="50" lean-forward="false" selection-start-line="19" selection-start-column="45" selection-end-line="19" selection-end-column="50" />
           <folding />
         </state>
       </provider>
@@ -583,23 +620,111 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ProtocolTimer.cpp">
+    <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="377">
-          <caret line="43" column="44" lean-forward="false" selection-start-line="43" selection-start-column="44" selection-end-line="43" selection-end-column="44" />
+        <state relative-caret-position="95">
+          <caret line="5" column="18" lean-forward="false" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProtocolParty.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30172">
+          <caret line="1588" column="0" lean-forward="false" selection-start-line="1588" selection-start-column="0" selection-end-line="1588" selection-end-column="0" />
+          <folding>
+            <element signature="e#10208#10225#0" expanded="true" />
+            <element signature="e#12856#12873#0" expanded="true" />
+            <element signature="e#13189#13206#0" expanded="true" />
+            <element signature="e#13683#13700#0" expanded="true" />
+            <element signature="e#14379#14396#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TemplateField.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="5" column="28" lean-forward="false" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="28" />
+          <folding>
+            <marker date="1508225310882" expanded="false" signature="2884:2895" ph="&lt;&gt;" />
+            <marker date="1508225310882" expanded="true" signature="2996:3154" ph="{...}" />
+            <marker date="1508225310882" expanded="false" signature="3157:3168" ph="&lt;&gt;" />
+            <marker date="1508225310882" expanded="true" signature="3241:3486" ph="{...}" />
+            <marker date="1508225310882" expanded="false" signature="3489:3500" ph="&lt;&gt;" />
+            <marker date="1508225310882" expanded="true" signature="3588:3658" ph="{...}" />
+            <marker date="1508225310882" expanded="false" signature="3661:3672" ph="&lt;&gt;" />
+            <marker date="1508225310882" expanded="true" signature="3745:3941" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ZpKaratsubaElement.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ProtocolTimer.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
+        <state relative-caret-position="494">
           <caret line="26" column="20" lean-forward="false" selection-start-line="26" selection-start-column="20" selection-end-line="26" selection-end-column="20" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/HonestMultAbstract.h">
+    <entry file="file://$PROJECT_DIR$/ProtocolTimer.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="817">
+          <caret line="43" column="44" lean-forward="false" selection-start-line="43" selection-start-column="44" selection-end-line="43" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HashEncrypt.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="8" column="17" lean-forward="false" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1102">
+          <caret line="58" column="17" lean-forward="false" selection-start-line="58" selection-start-column="17" selection-end-line="58" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TemplateField.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="5" column="28" lean-forward="false" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="28" />
+          <folding>
+            <marker date="1508225310882" expanded="false" signature="2884:2895" ph="&lt;&gt;" />
+            <marker date="1508225310882" expanded="true" signature="2996:3154" ph="{...}" />
+            <marker date="1508225310882" expanded="false" signature="3157:3168" ph="&lt;&gt;" />
+            <marker date="1508225310882" expanded="true" signature="3241:3486" ph="{...}" />
+            <marker date="1508225310882" expanded="false" signature="3489:3500" ph="&lt;&gt;" />
+            <marker date="1508225310882" expanded="true" signature="3588:3658" ph="{...}" />
+            <marker date="1508225310882" expanded="false" signature="3661:3672" ph="&lt;&gt;" />
+            <marker date="1508225310882" expanded="true" signature="3745:3941" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ZpKaratsubaElement.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -607,19 +732,146 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DNHonestMult.h">
+    <entry file="file://$PROJECT_DIR$/ProtocolTimer.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="309">
-          <caret line="37" column="2" lean-forward="false" selection-start-line="37" selection-start-column="2" selection-end-line="138" selection-end-column="0" />
+        <state relative-caret-position="494">
+          <caret line="26" column="20" lean-forward="false" selection-start-line="26" selection-start-column="20" selection-end-line="26" selection-end-column="20" />
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/ProtocolTimer.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="817">
+          <caret line="43" column="44" lean-forward="false" selection-start-line="43" selection-start-column="44" selection-end-line="43" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HashEncrypt.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="8" column="17" lean-forward="false" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1102">
+          <caret line="58" column="17" lean-forward="false" selection-start-line="58" selection-start-column="17" selection-end-line="58" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TemplateField.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="5" column="28" lean-forward="false" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="28" />
+          <folding>
+            <marker date="1508225310882" expanded="false" signature="2884:2895" ph="&lt;&gt;" />
+            <marker date="1508225310882" expanded="true" signature="2996:3154" ph="{...}" />
+            <marker date="1508225310882" expanded="false" signature="3157:3168" ph="&lt;&gt;" />
+            <marker date="1508225310882" expanded="true" signature="3241:3486" ph="{...}" />
+            <marker date="1508225310882" expanded="false" signature="3489:3500" ph="&lt;&gt;" />
+            <marker date="1508225310882" expanded="true" signature="3588:3658" ph="{...}" />
+            <marker date="1508225310882" expanded="false" signature="3661:3672" ph="&lt;&gt;" />
+            <marker date="1508225310882" expanded="true" signature="3745:3941" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ZpKaratsubaElement.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProtocolTimer.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="494">
+          <caret line="26" column="20" lean-forward="false" selection-start-line="26" selection-start-column="20" selection-end-line="26" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProtocolTimer.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="817">
+          <caret line="43" column="44" lean-forward="false" selection-start-line="43" selection-start-column="44" selection-end-line="43" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HashEncrypt.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="8" column="17" lean-forward="false" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1102">
+          <caret line="58" column="17" lean-forward="false" selection-start-line="58" selection-start-column="17" selection-end-line="58" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TemplateField.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="10" column="21" lean-forward="false" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/bin/cmake/share/cmake-3.7/Modules/FindBoost.cmake" />
+    <entry file="file://$PROJECT_DIR$/GRRHonestMult.h" />
+    <entry file="file://$PROJECT_DIR$/VDMTranspose.cpp" />
+    <entry file="file://$PROJECT_DIR$/VDMTranspose.h" />
+    <entry file="file://$PROJECT_DIR$/test_prg.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HIM.h" />
+    <entry file="file://$PROJECT_DIR$/HIM.cpp" />
+    <entry file="file://$PROJECT_DIR$/Protocol.cpp" />
+    <entry file="file://$PROJECT_DIR$/HashEncrypt.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="8" column="17" lean-forward="false" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HonestMultAbstract.h" />
+    <entry file="file://$PROJECT_DIR$/DNHonestMult.h" />
     <entry file="file://$PROJECT_DIR$/ZpKaratsubaElement.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -635,34 +887,62 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="95">
           <caret line="5" column="28" lean-forward="false" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="28" />
-          <folding />
+          <folding>
+            <marker date="1508225310882" expanded="false" signature="2884:2895" ph="&lt;&gt;" />
+            <marker date="1508225310882" expanded="true" signature="2996:3154" ph="{...}" />
+            <marker date="1508225310882" expanded="false" signature="3157:3168" ph="&lt;&gt;" />
+            <marker date="1508225310882" expanded="true" signature="3241:3486" ph="{...}" />
+            <marker date="1508225310882" expanded="false" signature="3489:3500" ph="&lt;&gt;" />
+            <marker date="1508225310882" expanded="true" signature="3588:3658" ph="{...}" />
+            <marker date="1508225310882" expanded="false" signature="3661:3672" ph="&lt;&gt;" />
+            <marker date="1508225310882" expanded="true" signature="3745:3941" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Protocol.h" />
     <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="17" column="52" lean-forward="false" selection-start-line="17" selection-start-column="52" selection-end-line="17" selection-end-column="52" />
+        <state relative-caret-position="361">
+          <caret line="19" column="50" lean-forward="false" selection-start-line="19" selection-start-column="45" selection-end-line="19" selection-end-column="50" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Protocol.h">
+    <entry file="file://$PROJECT_DIR$/ProtocolTimer.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="263" column="50" lean-forward="false" selection-start-line="263" selection-start-column="50" selection-end-line="263" selection-end-column="50" />
-          <folding>
-            <element signature="e#41#60#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="399">
+          <caret line="21" column="30" lean-forward="false" selection-start-line="21" selection-start-column="30" selection-end-line="21" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProtocolTimer.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="46" column="16" lean-forward="false" selection-start-line="46" selection-start-column="16" selection-end-line="46" selection-end-column="16" />
+        <state relative-caret-position="95">
+          <caret line="5" column="18" lean-forward="false" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProtocolParty.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-893">
+          <caret line="7" column="35" lean-forward="false" selection-start-line="7" selection-start-column="35" selection-end-line="7" selection-end-column="35" />
           <folding>
-            <element signature="e#1#20#0" expanded="true" />
+            <element signature="e#10208#10225#0" expanded="true" />
+            <element signature="e#12856#12873#0" expanded="true" />
+            <element signature="e#13189#13206#0" expanded="true" />
+            <element signature="e#13683#13700#0" expanded="true" />
+            <element signature="e#14379#14396#0" expanded="true" />
           </folding>
         </state>
       </provider>
