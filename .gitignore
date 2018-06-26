@@ -7,3 +7,7 @@ cmake_install.cmake
 Makefile
 MPCHonestMajorityNoTriples*
 callgrind.out.*
+
+.cproject
+.project
+
