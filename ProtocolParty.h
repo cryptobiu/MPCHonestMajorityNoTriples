@@ -21,6 +21,10 @@
 #include <emmintrin.h>
 #include <thread>
 
+#include "comm_client_cb_api.h"
+#include "comm_client_factory.h"
+#include "comm_client.h"
+
 #define flag_print false
 #define flag_print_timings true
 #define flag_print_output true
@@ -30,7 +34,7 @@ using namespace std;
 using namespace std::chrono;
 
 template <class FieldType>
-class ProtocolParty : public Protocol, public HonestMajority, MultiParty{
+class ProtocolParty : public Protocol, public HonestMajority, MultiParty, public comm_client_cb_api {
 
 private:
 
@@ -47,7 +51,6 @@ private:
     Measurement* timer;
     VDM<FieldType> matrix_vand;
     TemplateField<FieldType> *field;
-    vector<shared_ptr<ProtocolPartyData>>  parties;
     vector<FieldType> randomTAnd2TShares;
     vector<FieldType> randomSharesArray;
     vector<FieldType> bigR;
@@ -82,6 +85,52 @@ private:
 
     vector<long> myInputs;
 
+    //****************************************************************************************************//
+    comm_client * m_cc;
+
+    typedef struct __peer_t
+    {
+    	size_t id;
+    	bool conn;
+    	std::vector< u_int8_t > data;
+
+    	__peer_t() : id(0), conn(false) {}
+    }peer_t;
+    std::vector< peer_t > m_parties;
+
+	typedef enum { comm_evt_nil = 0, comm_evt_conn, comm_evt_msg } comm_evt_type_t;
+
+	class comm_evt
+	{
+	public:
+		comm_evt() : type(comm_evt_nil), party_id(-1) {}
+		virtual ~comm_evt(){}
+		comm_evt_type_t type;
+		unsigned int party_id;
+	};
+
+	class comm_conn_evt : public comm_evt
+	{
+	public:
+		bool connected;
+	};
+
+	class comm_msg_evt : public comm_evt
+	{
+	public:
+		std::vector< u_int8_t > msg;
+	};
+
+	pthread_mutex_t m_qlock, m_elock;
+	pthread_cond_t m_comm_e;
+	std::list< comm_evt * > m_comm_q;
+
+	void push_comm_event(comm_evt * evt);
+	void report_party_comm(const size_t party_id, const bool comm);
+	void process_network_events();
+	void wait_for_peer_connections();
+    //****************************************************************************************************//
+
 public:
 //    ProtocolParty(int n, int id,string fieldType, string inputsFile, string outputFile, string circuitFile,
 //             int groupID = 0);
@@ -89,16 +138,12 @@ public:
 
 
     void roundFunctionSync(vector<vector<byte>> &sendBufs, vector<vector<byte>> &recBufs, int round);
-    void exchangeData(vector<vector<byte>> &sendBufs,vector<vector<byte>> &recBufs, int first, int last);
-    void roundFunctionSyncBroadcast(vector<byte> &message, vector<vector<byte>> &recBufs);
-    void recData(vector<byte> &message, vector<vector<byte>> &recBufs, int first, int last);
     void roundFunctionSyncForP1(vector<byte> &myShare, vector<vector<byte>> &recBufs);
-    void recDataToP1(vector<vector<byte>> &recBufs, int first, int last);
 
-    void sendDataFromP1(vector<byte> &sendBuf, int first, int last);
-    void sendFromP1(vector<byte> &sendBuf);
-
-
+    //comm_client_cb_api
+	void on_comm_up_with_party(const unsigned int party_id);
+	void on_comm_down_with_party(const unsigned int party_id);
+	void on_comm_message(const unsigned int src_id, const unsigned char * msg, const size_t size);
 
 
     int counter = 0;
@@ -322,29 +367,44 @@ ProtocolParty<FieldType>::ProtocolParty(int argc, char* argv[]) : Protocol("MPCH
     myInputs.resize(numOfInputGates);
     counter = 0;
 
-
-    //comm->ConnectionToServer(s);
-
-    //boost::asio::io_service io_service;
-
-    MPCCommunication comm;
     string partiesFile = this->getParser().getValueByKey(arguments, "partiesFile");
 
-    parties = comm.setCommunication(io_service, m_partyId, N, partiesFile);
+ 	int errcode = 0;
+ 	if(0 != (errcode = pthread_mutex_init(&m_qlock, NULL)))
+ 	{
+         char errmsg[256];
+         std::cerr << __FUNCTION__ << ": pthread_mutex_init() failed with error "
+				   << errcode << " : [" << strerror_r(errcode, errmsg, 256) << "]." << std::endl;
+         exit(__LINE__);
+ 	}
+ 	if(0 != (errcode = pthread_mutex_init(&m_elock, NULL)))
+ 	{
+         char errmsg[256];
+         std::cerr << __FUNCTION__ << ": pthread_mutex_init() failed with error "
+				   << errcode << " : [" << strerror_r(errcode, errmsg, 256) << "]." << std::endl;
+         exit(__LINE__);
+ 	}
+ 	if(0 != (errcode = pthread_cond_init(&m_comm_e, NULL)))
+ 	{
+         char errmsg[256];
+         std::cerr << __FUNCTION__ << ": pthread_cond_init() failed with error "
+				   << errcode << " : [" << strerror_r(errcode, errmsg, 256) << "]." << std::endl;
+         exit(__LINE__);
+ 	}
 
-    string tmp = "init times";
-    //cout<<"before sending any data"<<endl;
-    byte tmpBytes[20];
-    for (int i=0; i<parties.size(); i++){
-        if (parties[i]->getID() < m_partyId){
-            parties[i]->getChannel()->write(tmp);
-            parties[i]->getChannel()->read(tmpBytes, tmp.size());
-        } else {
-            parties[i]->getChannel()->read(tmpBytes, tmp.size());
-            parties[i]->getChannel()->write(tmp);
-        }
-    }
+ 	size_t pid = 0;
+ 	m_parties.resize(n);
 
+    comm_client::cc_args_t cc_args;
+    cc_args.logcat = "pp.hm.nt";
+    m_cc = comm_client_factory::create_comm_client(comm_client_factory::cc_tcp_mesh, &cc_args);
+	if(0 != m_cc->start(m_partyId, n, partiesFile.c_str(), this))
+	{
+		std::cerr << __FUNCTION__ << ": comm client start failed; run failure." << std::endl;
+		exit(__LINE__);
+	}
+
+	wait_for_peer_connections();
 
     readMyInputs();
 
@@ -1446,12 +1506,13 @@ void ProtocolParty<FieldType>::DNHonestMultiplication(FieldType *a, FieldType *b
 
         //receive the shares from all the other parties
         roundFunctionSyncForP1(xyMinusRSharesBytes, recBufsBytes);
-
     }
     else {//since I am not party 1 parties[0]->getID()=1
 
         //send the shares to p1
-        parties[0]->getChannel()->write(xyMinusRSharesBytes.data(), xyMinusRSharesBytes.size());
+        //parties[0]->getChannel()->write(xyMinusRSharesBytes.data(), xyMinusRSharesBytes.size());
+
+    	m_cc->send(0, xyMinusRSharesBytes.data(), xyMinusRSharesBytes.size());
 
     }
 
@@ -1482,12 +1543,17 @@ void ProtocolParty<FieldType>::DNHonestMultiplication(FieldType *a, FieldType *b
         field->elementVectorToByteVector(xyMinusR, xyMinusRBytes);
 
         //send the reconstructed vector to all the other parties
-        sendFromP1(xyMinusRBytes);
+        for(size_t i = 1; i < m_parties.size(); ++i)
+        {
+        	m_cc->send(i, xyMinusRBytes.data(), xyMinusRBytes.size());
+        }
     }
 
     else {//each party get the xy-r reconstruced vector from party 1
 
-        parties[0]->getChannel()->read(xyMinusRBytes.data(), xyMinusRBytes.size());
+        //parties[0]->getChannel()->read(xyMinusRBytes.data(), xyMinusRBytes.size());
+
+        m_cc->send(0, xyMinusRBytes.data(), xyMinusRBytes.size());
     }
 
 
@@ -1927,252 +1993,56 @@ void ProtocolParty<FieldType>::outputPhase()
 template <class FieldType>
 void ProtocolParty<FieldType>::roundFunctionSync(vector<vector<byte>> &sendBufs, vector<vector<byte>> &recBufs, int round) {
 
-    //cout<<"in roundFunctionSync "<< round<< endl;
-
-    int numThreads = 10;//parties.size();
-    int numPartiesForEachThread;
-
-    if (parties.size() <= numThreads){
-        numThreads = parties.size();
-        numPartiesForEachThread = 1;
-    } else{
-        numPartiesForEachThread = (parties.size() + numThreads - 1)/ numThreads;
-    }
-
-
     recBufs[m_partyId] = move(sendBufs[m_partyId]);
-    //recieve the data using threads
-    vector<thread> threads(numThreads);
-    for (int t=0; t<numThreads; t++) {
-        if ((t + 1) * numPartiesForEachThread <= parties.size()) {
-            threads[t] = thread(&ProtocolParty::exchangeData, this, ref(sendBufs), ref(recBufs),
-                                t * numPartiesForEachThread, (t + 1) * numPartiesForEachThread);
-        } else {
-            threads[t] = thread(&ProtocolParty::exchangeData, this, ref(sendBufs), ref(recBufs), t * numPartiesForEachThread, parties.size());
-        }
-    }
-    for (int t=0; t<numThreads; t++){
-        threads[t].join();
+
+    for(size_t pid = 0; pid < m_parties.size(); ++pid)
+    {
+    	if(pid == m_partyId) continue;
+    	m_cc->send(pid, sendBufs[pid].data(), sendBufs[pid].size());
     }
 
+    bool all_data_ready = true;
+    do
+    {
+    	process_network_events();
+    	for(size_t pid = 0; pid < m_parties.size(); ++pid)
+    	{
+        	if(pid == m_partyId) continue;
+        	all_data_ready = all_data_ready && (m_parties[pid].data.size() >= recBufs[pid].size());
+    	}
+    }while(!all_data_ready);
+
+    for(size_t pid = 0; pid < m_parties.size(); ++pid)
+    {
+    	if(pid == m_partyId) continue;
+    	memcpy(recBufs[pid].data(), m_parties[pid].data.data(), recBufs[pid].size());
+    	m_parties[pid].data.erase(m_parties[pid].data.begin(), m_parties[pid].data.begin() + recBufs[pid].size());
+    }
 }
-
-
-template <class FieldType>
-void ProtocolParty<FieldType>::exchangeData(vector<vector<byte>> &sendBufs, vector<vector<byte>> &recBufs, int first, int last){
-
-
-    //cout<<"in exchangeData";
-    for (int i=first; i < last; i++) {
-
-        if ((m_partyId) < parties[i]->getID()) {
-
-
-            //send shares to my input bits
-            parties[i]->getChannel()->write(sendBufs[parties[i]->getID()].data(), sendBufs[parties[i]->getID()].size());
-            //cout<<"write the data:: my Id = " << m_partyId - 1<< "other ID = "<< parties[i]->getID() <<endl;
-
-
-            //receive shares from the other party and set them in the shares array
-            parties[i]->getChannel()->read(recBufs[parties[i]->getID()].data(), recBufs[parties[i]->getID()].size());
-            //cout<<"read the data:: my Id = " << m_partyId-1<< "other ID = "<< parties[i]->getID()<<endl;
-
-        } else{
-
-
-            //receive shares from the other party and set them in the shares array
-            parties[i]->getChannel()->read(recBufs[parties[i]->getID()].data(), recBufs[parties[i]->getID()].size());
-            //cout<<"read the data:: my Id = " << m_partyId-1<< "other ID = "<< parties[i]->getID()<<endl;
-
-
-
-            //send shares to my input bits
-            parties[i]->getChannel()->write(sendBufs[parties[i]->getID()].data(), sendBufs[parties[i]->getID()].size());
-            //cout<<"write the data:: my Id = " << m_partyId-1<< "other ID = "<< parties[i]->getID() <<endl;
-
-
-        }
-
-    }
-
-
-}
-
-
-
-
-
-template <class FieldType>
-void ProtocolParty<FieldType>::roundFunctionSyncBroadcast(vector<byte> &message, vector<vector<byte>> &recBufs) {
-
-    //cout<<"in roundFunctionSyncBroadcast "<< endl;
-
-    int numThreads = 10;//parties.size();
-    int numPartiesForEachThread;
-
-    if (parties.size() <= numThreads){
-        numThreads = parties.size();
-        numPartiesForEachThread = 1;
-    } else{
-        numPartiesForEachThread = (parties.size() + numThreads - 1)/ numThreads;
-    }
-
-
-    recBufs[m_partyId] = message;
-    //recieve the data using threads
-    vector<thread> threads(numThreads);
-    for (int t=0; t<numThreads; t++) {
-        if ((t + 1) * numPartiesForEachThread <= parties.size()) {
-            threads[t] = thread(&ProtocolParty::recData, this, ref(message), ref(recBufs),
-                                t * numPartiesForEachThread, (t + 1) * numPartiesForEachThread);
-        } else {
-            threads[t] = thread(&ProtocolParty::recData, this, ref(message),  ref(recBufs), t * numPartiesForEachThread, parties.size());
-        }
-    }
-    for (int t=0; t<numThreads; t++){
-        threads[t].join();
-    }
-
-}
-
-
-template <class FieldType>
-void ProtocolParty<FieldType>::recData(vector<byte> &message, vector<vector<byte>> &recBufs, int first, int last){
-
-
-    //cout<<"in exchangeData";
-    for (int i=first; i < last; i++) {
-
-        if ((m_partyId) < parties[i]->getID()) {
-
-
-            //send shares to my input bits
-            parties[i]->getChannel()->write(message.data(), message.size());
-            //cout<<"write the data:: my Id = " << m_partyId - 1<< "other ID = "<< parties[i]->getID() <<endl;
-
-
-            //receive shares from the other party and set them in the shares array
-            parties[i]->getChannel()->read(recBufs[parties[i]->getID()].data(), recBufs[parties[i]->getID()].size());
-            //cout<<"read the data:: my Id = " << m_partyId-1<< "other ID = "<< parties[i]->getID()<<endl;
-
-        } else{
-
-
-            //receive shares from the other party and set them in the shares array
-            parties[i]->getChannel()->read(recBufs[parties[i]->getID()].data(), recBufs[parties[i]->getID()].size());
-            //cout<<"read the data:: my Id = " << m_partyId-1<< "other ID = "<< parties[i]->getID()<<endl;
-
-
-
-            //send shares to my input bits
-            parties[i]->getChannel()->write(message.data(), message.size());
-            //cout<<"write the data:: my Id = " << m_partyId-1<< "other ID = "<< parties[i]->getID() <<endl;
-
-
-        }
-
-    }
-
-
-}
-
-
 
 template <class FieldType>
 void ProtocolParty<FieldType>::roundFunctionSyncForP1(vector<byte> &myShare, vector<vector<byte>> &recBufs) {
 
-    //cout<<"in roundFunctionSyncBroadcast "<< endl;
+	recBufs[m_partyId] = myShare;
 
-    int numThreads = parties.size();
-    int numPartiesForEachThread;
+    bool all_data_ready = true;
+    do
+    {
+    	process_network_events();
+    	for(size_t pid = 0; pid < m_parties.size(); ++pid)
+    	{
+        	if(pid == m_partyId) continue;
+        	all_data_ready = all_data_ready && (m_parties[pid].data.size() >= recBufs[pid].size());
+    	}
+    }while(!all_data_ready);
 
-    if (parties.size() <= numThreads){
-        numThreads = parties.size();
-        numPartiesForEachThread = 1;
-    } else{
-        numPartiesForEachThread = (parties.size() + numThreads - 1)/ numThreads;
+    for(size_t pid = 0; pid < m_parties.size(); ++pid)
+    {
+    	if(pid == m_partyId) continue;
+    	memcpy(recBufs[pid].data(), m_parties[pid].data.data(), recBufs[pid].size());
+    	m_parties[pid].data.erase(m_parties[pid].data.begin(), m_parties[pid].data.begin() + recBufs[pid].size());
     }
-
-
-    recBufs[m_partyId] = myShare;
-    //recieve the data using threads
-    vector<thread> threads(numThreads);
-    for (int t=0; t<numThreads; t++) {
-        if ((t + 1) * numPartiesForEachThread <= parties.size()) {
-            threads[t] = thread(&ProtocolParty::recDataToP1, this,  ref(recBufs),
-                                t * numPartiesForEachThread, (t + 1) * numPartiesForEachThread);
-        } else {
-            threads[t] = thread(&ProtocolParty::recDataToP1, this, ref(recBufs), t * numPartiesForEachThread, parties.size());
-        }
-    }
-    for (int t=0; t<numThreads; t++){
-        threads[t].join();
-    }
-
 }
-
-
-template <class FieldType>
-void ProtocolParty<FieldType>::recDataToP1(vector<vector<byte>> &recBufs, int first, int last){
-
-
-    //cout<<"in exchangeData";
-    for (int i=first; i < last; i++) {
-
-        parties[i]->getChannel()->read(recBufs[parties[i]->getID()].data(), recBufs[parties[i]->getID()].size());
-        //cout<<"read the data:: my Id = " << m_partyId-1<< "other ID = "<< parties[i]->getID()<<endl;
-    }
-
-
-}
-
-
-
-template <class FieldType>
-void ProtocolParty<FieldType>::sendFromP1(vector<byte> &sendBuf) {
-
-    //cout<<"in roundFunctionSyncBroadcast "<< endl;
-
-    int numThreads = parties.size();
-    int numPartiesForEachThread;
-
-    if (parties.size() <= numThreads){
-        numThreads = parties.size();
-        numPartiesForEachThread = 1;
-    } else{
-        numPartiesForEachThread = (parties.size() + numThreads - 1)/ numThreads;
-    }
-
-    //recieve the data using threads
-    vector<thread> threads(numThreads);
-    for (int t=0; t<numThreads; t++) {
-        if ((t + 1) * numPartiesForEachThread <= parties.size()) {
-            threads[t] = thread(&ProtocolParty::sendDataFromP1, this,  ref(sendBuf),
-                                t * numPartiesForEachThread, (t + 1) * numPartiesForEachThread);
-        } else {
-            threads[t] = thread(&ProtocolParty::sendDataFromP1, this, ref(sendBuf), t * numPartiesForEachThread, parties.size());
-        }
-    }
-    for (int t=0; t<numThreads; t++){
-        threads[t].join();
-    }
-
-}
-
-template <class FieldType>
-void ProtocolParty<FieldType>::sendDataFromP1(vector<byte> &sendBuf, int first, int last){
-
-    for(int i=first; i < last; i++) {
-
-        parties[i]->getChannel()->write(sendBuf.data(), sendBuf.size());
-
-    }
-
-
-}
-
-
-
 
 template <class FieldType>
 ProtocolParty<FieldType>::~ProtocolParty()
@@ -2182,7 +2052,191 @@ ProtocolParty<FieldType>::~ProtocolParty()
     delete field;
     delete timer;
     //delete comm;
+
+    int errcode = 0;
+ 	if(0 != (errcode = pthread_cond_destroy(&m_comm_e)))
+ 	{
+         char errmsg[256];
+         std::cerr << __FUNCTION__ << ": pthread_cond_destroy() failed with error "
+				   << errcode << " : [" << strerror_r(errcode, errmsg, 256) << "]." << std::endl;
+ 	}
+ 	if(0 != (errcode = pthread_mutex_destroy(&m_elock)))
+ 	{
+         char errmsg[256];
+         std::cerr << __FUNCTION__ << ": pthread_mutex_destroy() failed with error "
+				   << errcode << " : [" << strerror_r(errcode, errmsg, 256) << "]." << std::endl;
+ 	}
+ 	if(0 != (errcode = pthread_mutex_destroy(&m_qlock)))
+ 	{
+         char errmsg[256];
+         std::cerr << __FUNCTION__ << ": pthread_mutex_destroy() failed with error "
+				   << errcode << " : [" << strerror_r(errcode, errmsg, 256) << "]." << std::endl;
+ 	}
+	delete m_cc;
 }
 
+template <class FieldType>
+void ProtocolParty<FieldType>::push_comm_event(comm_evt * evt)
+{
+	int errcode;
+	if(0 != (errcode = pthread_mutex_lock(&m_qlock)))
+	{
+		 char errmsg[256];
+		 std::cerr << __FUNCTION__ << ": pthread_mutex_lock() failed with error "
+				   << errcode << " : [" << strerror_r(errcode, errmsg, 256) << "]." << std::endl;
+		 exit(__LINE__);
+	}
+
+	m_comm_q.push_back(evt);
+
+	if(0 != (errcode = pthread_mutex_unlock(&m_qlock)))
+	{
+		char errmsg[256];
+		std::cerr << __FUNCTION__ << ": pthread_mutex_unlock() failed with error "
+				  << errcode << " : [" << strerror_r(errcode, errmsg, 256) << "]." << std::endl;
+		exit(__LINE__);
+	}
+
+	if(0 != (errcode = pthread_mutex_lock(&m_elock)))
+	{
+		 char errmsg[256];
+		 std::cerr << __FUNCTION__ << ": pthread_mutex_lock() failed with error "
+				   << errcode << " : [" << strerror_r(errcode, errmsg, 256) << "]." << std::endl;
+		 exit(__LINE__);
+	}
+
+	if(0 != (errcode = pthread_cond_signal(&m_comm_e)))
+	{
+		char errmsg[256];
+		std::cerr << __FUNCTION__ << ": pthread_cond_signal() failed with error "
+				  << errcode << " : [" << strerror_r(errcode, errmsg, 256) << "]." << std::endl;
+		exit(__LINE__);
+	}
+
+	if(0 != (errcode = pthread_mutex_unlock(&m_elock)))
+	{
+		char errmsg[256];
+		std::cerr << __FUNCTION__ << ": pthread_mutex_unlock() failed with error "
+				  << errcode << " : [" << strerror_r(errcode, errmsg, 256) << "]." << std::endl;
+		exit(__LINE__);
+	}
+}
+
+template <class FieldType>
+void ProtocolParty<FieldType>::report_party_comm(const size_t party_id, const bool comm)
+{
+	comm_conn_evt * pevt = new comm_conn_evt;
+	pevt->type = comm_evt_conn;
+	pevt->party_id = party_id;
+	pevt->connected = comm;
+	push_comm_event(pevt);
+}
+
+template <class FieldType>
+void ProtocolParty<FieldType>::process_network_events()
+{
+	int errcode;
+	std::list< comm_evt * > comm_evts;
+	if(0 != (errcode = pthread_mutex_lock(&m_elock)))
+	{
+		 char errmsg[256];
+		 std::cerr << __FUNCTION__ << ": pthread_mutex_lock() failed with error "
+				   << errcode << " : [" << strerror_r(errcode, errmsg, 256) << "]." << std::endl;
+		 exit(__LINE__);
+	}
+
+	struct timespec to;
+	clock_gettime(CLOCK_REALTIME, &to);
+	to.tv_sec += 1;
+	if(0 != (errcode = pthread_cond_timedwait(&m_comm_e, &m_elock, &to)) && ETIMEDOUT != errcode)
+	{
+		char errmsg[256];
+		std::cerr << __FUNCTION__ << ": pthread_cond_wait() failed with error "
+				  << errcode << " : [" << strerror_r(errcode, errmsg, 256) << "]." << std::endl;
+		exit(__LINE__);
+	}
+
+	if(0 != (errcode = pthread_mutex_unlock(&m_elock)))
+	{
+		char errmsg[256];
+		std::cerr << __FUNCTION__ << ": pthread_mutex_unlock() failed with error "
+				  << errcode << " : [" << strerror_r(errcode, errmsg, 256) << "]." << std::endl;
+		exit(__LINE__);
+	}
+
+	if(0 != (errcode = pthread_mutex_lock(&m_qlock)))
+	{
+		 char errmsg[256];
+		 std::cerr << __FUNCTION__ << ": pthread_mutex_lock() failed with error "
+				   << errcode << " : [" << strerror_r(errcode, errmsg, 256) << "]." << std::endl;
+		 exit(__LINE__);
+	}
+
+	comm_evts.swap(m_comm_q);
+
+	if(0 != (errcode = pthread_mutex_unlock(&m_qlock)))
+	{
+		char errmsg[256];
+		std::cerr << __FUNCTION__ << ": pthread_mutex_unlock() failed with error "
+				  << errcode << " : [" << strerror_r(errcode, errmsg, 256) << "]." << std::endl;
+		exit(__LINE__);
+	}
+
+	for(typename std::list< comm_evt * >::iterator i = comm_evts.begin(); i != comm_evts.end(); ++i)
+	{
+		switch((*i)->type)
+		{
+		case comm_evt_conn:
+			m_parties[(*i)->party_id].conn = ((comm_conn_evt*)(*i))->connected;
+			break;
+		case comm_evt_msg:
+			m_parties[(*i)->party_id].data.insert(
+					m_parties[(*i)->party_id].data.end(),
+					((comm_msg_evt*)(*i))->msg.begin(),
+				((comm_msg_evt*)(*i))->msg.end());
+			break;
+		default:
+			break;
+		}
+		delete (*i);
+	}
+	comm_evts.clear();
+}
+
+template <class FieldType>
+void ProtocolParty<FieldType>::wait_for_peer_connections()
+{
+	bool all_parties_connected = false;
+
+	do
+	{
+		process_network_events();
+		all_parties_connected = true;
+		for(typename std::vector< peer_t >::iterator i = m_parties.begin(); i != m_parties.end(); ++i)
+			all_parties_connected = all_parties_connected && i->conn;
+	}while(!all_parties_connected);
+}
+
+template <class FieldType>
+void ProtocolParty<FieldType>::on_comm_up_with_party(const unsigned int party_id)
+{
+	report_party_comm(party_id, true);
+}
+
+template <class FieldType>
+void ProtocolParty<FieldType>::on_comm_down_with_party(const unsigned int party_id)
+{
+	report_party_comm(party_id, false);
+}
+
+template <class FieldType>
+void ProtocolParty<FieldType>::on_comm_message(const unsigned int src_id, const unsigned char * msg, const size_t size)
+{
+	comm_msg_evt * pevt = new comm_msg_evt;
+	pevt->type = comm_evt_msg;
+	pevt->party_id = src_id;
+	pevt->msg.assign(msg, msg + size);
+	push_comm_event(pevt);
+}
 
 #endif /* PROTOCOLPARTY_H_ */
