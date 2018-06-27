@@ -795,7 +795,6 @@ void ProtocolParty<FieldType>::generateRandomShares(int numOfRandoms,
 
 		// prepare shares to be sent
 		for (int i = 0; i < N; i++) {
-			//cout << "y1[ " <<i<< "]" <<y1[i] << endl;
 			sendBufsElements[i][k] = y1[i];
 
 		}
@@ -814,17 +813,6 @@ void ProtocolParty<FieldType>::generateRandomShares(int numOfRandoms,
 	}
 
 	roundFunctionSync(sendBufsBytes, recBufsBytes, 4);
-
-	for (int i = 0; i < N; i++)
-		for (int k = 0; k < sendBufsBytes[0].size(); k++)
-			log4cpp::Category::getInstance(logcat).debug(
-					"%s: roundfunction4 send to %d element: %d = %d",
-					__FUNCTION__, i, k, (int) sendBufsBytes[i][k]);
-	for (int i = 0; i < N; i++)
-		for (int k = 0; k < recBufsBytes[0].size(); k++)
-			log4cpp::Category::getInstance(logcat).debug(
-					"%s: roundfunction4 recv from %d element: %d = %d",
-					__FUNCTION__, i, k, (int) recBufsBytes[i][k]);
 
 	for (int k = 0; k < no_buckets; k++) {
 		for (int i = 0; i < N; i++) {
@@ -914,24 +902,14 @@ void ProtocolParty<FieldType>::generateRandom2TAndTShares(int numOfRandomPairs,
 
 		// prepare shares to be sent
 		for (int i = 0; i < N; i++) {
-			//cout << "y1[ " <<i<< "]" <<y1[i] << endl;
 			sendBufsElements[i][2 * k] = y1[i];
 			sendBufsElements[i][2 * k + 1] = y2[i];
 
 		}
 	}
 
-	if (flag_print) {
-		for (int i = 0; i < N; i++) {
-			for (int k = 0; k < sendBufsElements[0].size(); k++) {
-
-				// cout << "before roundfunction4 send to " <<i <<" element: "<< k << " " << sendBufsElements[i][k] << endl;
-			}
-		}
-		cout << "sendBufs" << endl;
-		cout << "N" << N << endl;
-		cout << "T" << T << endl;
-	}
+	log4cpp::Category::getInstance(logcat).debug("%s: N=%d; T=%d.",
+			__FUNCTION__, N, T);
 
 	int fieldByteSize = field->getElementSizeInBytes();
 	for (int i = 0; i < N; i++) {
@@ -943,22 +921,6 @@ void ProtocolParty<FieldType>::generateRandom2TAndTShares(int numOfRandomPairs,
 	}
 
 	roundFunctionSync(sendBufsBytes, recBufsBytes, 4);
-
-	if (flag_print) {
-		for (int i = 0; i < N; i++) {
-			for (int k = 0; k < sendBufsBytes[0].size(); k++) {
-
-				cout << "roundfunction4 send to " << i << " element: " << k
-						<< " " << (int) sendBufsBytes[i][k] << endl;
-			}
-		}
-		for (int i = 0; i < N; i++) {
-			for (int k = 0; k < recBufsBytes[0].size(); k++) {
-				cout << "roundfunction4 receive from " << i << " element: " << k
-						<< " " << (int) recBufsBytes[i][k] << endl;
-			}
-		}
-	}
 
 	for (int k = 0; k < no_buckets; k++) {
 		for (int i = 0; i < N; i++) {
@@ -1057,16 +1019,6 @@ void ProtocolParty<FieldType>::initializationPhase() {
 	matrix_for_2t.allocate(N - 1 - 2 * T, 2 * T + 1, field); // slices, only positions from 0..d
 	//matrix_for_2t.InitHIMByVectors(alpha_until_2t, alpha_from_2t);
 	matrix_for_2t.InitHIMVectorAndsizes(alpha, 2 * T + 1, N - (2 * T + 1));
-
-	if (flag_print) {
-		cout << "matrix_for_t : " << endl;
-		matrix_for_t.Print();
-
-		cout << "matrix_for_2t : " << endl;
-		matrix_for_2t.Print();
-
-	}
-
 }
 
 template<class FieldType>
@@ -1181,9 +1133,9 @@ FieldType ProtocolParty<FieldType>::reconstructShare(vector<FieldType>& x,
 
 	if (!checkConsistency(x, d)) {
 		// someone cheated!
-
-		cout << "cheating!!!" << '\n';
-		exit(0);
+		log4cpp::Category::getInstance(logcat).error("%s: cheat deteceted.",
+				__FUNCTION__);
+		exit(__LINE__);
 	} else
 		return interpolate(x);
 }
@@ -1560,12 +1512,10 @@ void ProtocolParty<FieldType>::verificationPhase() {
 	auto key = generateCommonKey();
 
 	//print key
-	if (flag_print) {
-		for (int i = 0; i < key.size(); i++) {
-			cout << "key[" << i << "] for party :" << m_partyId << "is : "
-					<< (int) key[i] << endl;
-		}
-	}
+	for (int i = 0; i < key.size(); i++)
+		log4cpp::Category::getInstance(logcat).info(
+				"%s: key[%d] for party[%d] is: %d.", __FUNCTION__, i, m_partyId,
+				key[i]);
 
 	//calc the number of times we need to run the verification -- ceiling
 	int iterations = (5 + field->getElementSizeInBytes() - 1)
@@ -1611,23 +1561,18 @@ void ProtocolParty<FieldType>::verificationPhase() {
 			//h in order no to compare with a bigger h than neccesary.
 			h.clear();
 		}
-		if (flag_print) {
-			cout << "verify batch for party " << m_partyId << endl;
-		}
+
+		log4cpp::Category::getInstance(logcat).info(
+				"%s: verifying batch for party %d.", __FUNCTION__, m_partyId);
+
 		//call the verification sub protocol
 		answer = verificationBatched(neededShares.data(),
 				randomElements.data() + numOfRandomelements * i,
 				numOfMultGates + numOfInputGates);
-		if (flag_print) {
-			cout << "answer is : " << answer << " for iteration : " << i
-					<< endl;
-		}
+		log4cpp::Category::getInstance(logcat).info(
+				"%s: answer is %s for iteration %d.", __FUNCTION__,
+				((answer) ? "true" : "false"), i);
 	}
-
-	if (flag_print) {
-		cout << "answer is:" << answer << endl;
-	}
-
 }
 
 template<class FieldType>
@@ -1674,20 +1619,14 @@ bool ProtocolParty<FieldType>::comparingViews() {
 	}
 
 	if (cmp == 0) {
-		//if (flag_print) {
-		cout << "all digests are the same" << endl;
-		//}
-
+		log4cpp::Category::getInstance(logcat).notice(
+				"%s: all digests are the same.", __FUNCTION__);
 		return true;
-
 	} else {
-
-		cout << "comparing views failed" << endl;
-
+		log4cpp::Category::getInstance(logcat).notice(
+				"%s: comparing views failed.", __FUNCTION__);
 		return false;
-
 	}
-
 }
 
 template<class FieldType>
@@ -1791,9 +1730,8 @@ void ProtocolParty<FieldType>::generatePseudoRandomElements(
 		size = 4;
 	}
 
-	if (flag_print) {
-		cout << "size is" << size << "for party : " << m_partyId;
-	}
+	log4cpp::Category::getInstance(logcat).debug("%s: size is %d for party %d.",
+			__FUNCTION__, size, m_partyId);
 
 	PrgFromOpenSSLAES prg((numOfRandomElements * size / 16) + 1);
 	SecretKey sk(aesKey, "aes");
@@ -1842,15 +1780,11 @@ bool ProtocolParty<FieldType>::verificationBatched(FieldType *neededShares,
 
 	//check that T=0
 	if (secretArr[0] != *field->GetZero()) {
-		cout
-				<< "bassssssaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-				<< endl;
+		log4cpp::Category::getInstance(logcat).debug("%s: baasa.",
+				__FUNCTION__);
 		return false;
 	} else {
-
-		cout
-				<< "yessssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss"
-				<< endl;
+		log4cpp::Category::getInstance(logcat).debug("%s: yes.", __FUNCTION__);
 		return true;
 	}
 
@@ -1898,9 +1832,7 @@ void ProtocolParty<FieldType>::outputPhase() {
 	roundFunctionSync(sendBufsBytes, recBufBytes, 7);
 
 	int counter = 0;
-	if (flag_print) {
-		cout << "endnend" << endl;
-	}
+	log4cpp::Category::getInstance(logcat).debug("%s: endnend.", __FUNCTION__);
 	for (int k = M - numOfOutputGates; k < M; k++) {
 		if (circuit.getGates()[k].gateType == OUTPUT
 				&& circuit.getGates()[k].party == m_partyId) {
@@ -1913,15 +1845,14 @@ void ProtocolParty<FieldType>::outputPhase() {
 			// my output: reconstruct received shares
 			if (!checkConsistency(x1, T)) {
 				// someone cheated!
-				//if(flag_print) {
-				cout << "cheating!!!" << '\n';                //}
+				log4cpp::Category::getInstance(logcat_out).warn(
+						"%s: cheat detected.", __FUNCTION__);
 				return;
 			}
-			if (flag_print_output)
-				cout << "the result for " << circuit.getGates()[k].input1
-						<< " is : " << field->elementToString(interpolate(x1))
-						<< '\n';
-
+			log4cpp::Category::getInstance(logcat_out).notice(
+					"%s: the result for %d is %s", __FUNCTION__,
+					circuit.getGates()[k].input1,
+					field->elementToString(interpolate(x1)).c_str());
 			counter++;
 		}
 	}
@@ -1939,7 +1870,15 @@ void ProtocolParty<FieldType>::roundFunctionSync(vector<vector<byte>> &sendBufs,
 	for (size_t pid = 0; pid < m_parties.size(); ++pid) {
 		if (pid == m_partyId)
 			continue;
-		m_cc->send(pid, sendBufs[pid].data(), sendBufs[pid].size());
+		if (0 == m_cc->send(pid, sendBufs[pid].data(), sendBufs[pid].size()))
+			log4cpp::Category::getInstance(logcat).debug(
+					"%s: sent %lu bytes to party %lu", __FUNCTION__,
+					sendBufs[pid].size(), pid);
+		else {
+			log4cpp::Category::getInstance(logcat).error("%s: cc send failed.",
+					__FUNCTION__);
+			exit(__LINE__);
+		}
 	}
 
 	bool all_data_ready = true;
@@ -1956,6 +1895,9 @@ void ProtocolParty<FieldType>::roundFunctionSync(vector<vector<byte>> &sendBufs,
 	for (size_t pid = 0; pid < m_parties.size(); ++pid) {
 		if (pid == m_partyId)
 			continue;
+		log4cpp::Category::getInstance(logcat).debug(
+				"%s: reading %lu bytes from party %lu", __FUNCTION__,
+				recBufs[pid].size(), pid);
 		memcpy(recBufs[pid].data(), m_parties[pid].data.data(),
 				recBufs[pid].size());
 		m_parties[pid].data.erase(m_parties[pid].data.begin(),
