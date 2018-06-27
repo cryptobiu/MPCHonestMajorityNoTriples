@@ -389,7 +389,9 @@ ProtocolParty<FieldType>::ProtocolParty(int argc, char* argv[]) :
 			"partiesFile");
 
 	logcat = "pp";
-	init_log("protocol_party.log", "./logs", 700, logcat.c_str());
+	char log_file_name[64];
+	snprintf(log_file_name, 64, "protocol_party_%03d.log", m_partyId);
+	init_log(log_file_name, "./logs", 700, logcat.c_str());
 	logcat_tim = logcat + ".tim";
 	logcat_out = logcat + ".out";
 
