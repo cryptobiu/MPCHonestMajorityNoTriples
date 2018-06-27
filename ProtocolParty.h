@@ -1883,14 +1883,24 @@ void ProtocolParty<FieldType>::roundFunctionSync(vector<vector<byte>> &sendBufs,
 		}
 	}
 
-	bool all_data_ready = true;
+	bool all_data_ready;
 	do {
 		process_network_events();
+
+		all_data_ready = true;
 		for (size_t pid = 0; pid < m_parties.size(); ++pid) {
 			if (pid == m_partyId)
 				continue;
-			all_data_ready = all_data_ready
-					&& (m_parties[pid].data.size() >= recBufs[pid].size());
+
+			log4cpp::Category::getInstance(logcat).debug(
+					"%s: expecting %lu bytes from party %lu; got %lu bytes so far.",
+					__FUNCTION__, recBufs[pid].size(), pid,
+					m_parties[pid].data.size());
+
+			all_data_ready =
+					all_data_ready
+							& (m_parties[pid].data.size() >= recBufs[pid].size()) ?
+							true : false;
 		}
 	} while (!all_data_ready);
 
@@ -1916,11 +1926,21 @@ void ProtocolParty<FieldType>::roundFunctionSyncForP1(vector<byte> &myShare,
 	bool all_data_ready = true;
 	do {
 		process_network_events();
+
+		all_data_ready = true;
 		for (size_t pid = 0; pid < m_parties.size(); ++pid) {
 			if (pid == m_partyId)
 				continue;
-			all_data_ready = all_data_ready
-					&& (m_parties[pid].data.size() >= recBufs[pid].size());
+
+			log4cpp::Category::getInstance(logcat).debug(
+					"%s: expecting %lu bytes from party %lu; got %lu bytes so far.",
+					__FUNCTION__, recBufs[pid].size(), pid,
+					m_parties[pid].data.size());
+
+			all_data_ready =
+					all_data_ready
+							&& (m_parties[pid].data.size()
+									>= recBufs[pid].size()) ? true : false;
 		}
 	} while (!all_data_ready);
 
