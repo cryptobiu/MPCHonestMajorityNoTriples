@@ -2096,8 +2096,11 @@ void ProtocolParty<FieldType>::wait_for_peer_connections() {
 		process_network_events();
 		all_parties_connected = true;
 		for (typename std::vector<peer_t>::iterator i = m_parties.begin();
-				i != m_parties.end(); ++i)
+				i != m_parties.end(); ++i) {
+			if (i->id == m_partyId)
+				continue;
 			all_parties_connected = all_parties_connected && i->conn;
+		}
 	} while (!all_parties_connected);
 }
 
