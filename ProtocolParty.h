@@ -2094,9 +2094,16 @@ void ProtocolParty<FieldType>::process_network_events() {
 			i != comm_evts.end(); ++i) {
 		switch ((*i)->type) {
 		case comm_evt_conn:
+			log4cpp::Category::getInstance(logcat).debug(
+					"%s: comm_evt_conn %lu conn=%s.", __FUNCTION__,
+					(*i)->party_id,
+					((((comm_conn_evt*) (*i))->connected) ? "true" : "false"));
 			m_parties[(*i)->party_id].conn = ((comm_conn_evt*) (*i))->connected;
 			break;
 		case comm_evt_msg:
+			log4cpp::Category::getInstance(logcat).debug(
+					"%s: comm_evt_msg %lu bytes=%lu.", __FUNCTION__,
+					(*i)->party_id, ((comm_msg_evt*) (*i))->msg.size());
 			m_parties[(*i)->party_id].data.insert(
 					m_parties[(*i)->party_id].data.end(),
 					((comm_msg_evt*) (*i))->msg.begin(),
@@ -2124,23 +2131,31 @@ void ProtocolParty<FieldType>::wait_for_peer_connections() {
 			all_parties_connected = all_parties_connected && i->conn;
 		}
 	} while (!all_parties_connected);
+	log4cpp::Category::getInstance(logcat).debug("%s: all peers connected.",
+			__FUNCTION__);
 }
 
 template<class FieldType>
 void ProtocolParty<FieldType>::on_comm_up_with_party(
 		const unsigned int party_id) {
+	log4cpp::Category::getInstance(logcat).debug("%s: party %u connected.",
+			__FUNCTION__, party_id);
 	report_party_comm(party_id, true);
 }
 
 template<class FieldType>
 void ProtocolParty<FieldType>::on_comm_down_with_party(
 		const unsigned int party_id) {
+	log4cpp::Category::getInstance(logcat).debug("%s: party %u disconnected.",
+			__FUNCTION__, party_id);
 	report_party_comm(party_id, false);
 }
 
 template<class FieldType>
 void ProtocolParty<FieldType>::on_comm_message(const unsigned int src_id,
 		const unsigned char * msg, const size_t size) {
+	log4cpp::Category::getInstance(logcat).debug("%s: party %u sent %lu bytes.",
+			__FUNCTION__, src_id, size);
 	comm_msg_evt * pevt = new comm_msg_evt;
 	pevt->type = comm_evt_msg;
 	pevt->party_id = src_id;
