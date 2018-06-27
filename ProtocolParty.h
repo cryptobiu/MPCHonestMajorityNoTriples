@@ -481,7 +481,6 @@ void ProtocolParty<FieldType>::run() {
 		log4cpp::Category::getInstance(logcat_tim).info(
 				"%s: time in milliseconds for protocol: %lu.", __FUNCTION__,
 				(size_t) duration);
-		m_cc->stop();
 	}
 }
 
@@ -1960,7 +1959,9 @@ ProtocolParty<FieldType>::~ProtocolParty() {
 	delete protocolTimer;
 	delete field;
 	delete timer;
-	//delete comm;
+
+	m_cc->stop();
+	delete m_cc;
 
 	int errcode = 0;
 	if (0 != (errcode = pthread_cond_destroy(&m_comm_e))) {
@@ -1981,7 +1982,6 @@ ProtocolParty<FieldType>::~ProtocolParty() {
 				"%s: pthread_mutex_destroy() failed with error %d : [%s].",
 				__FUNCTION__, errcode, strerror_r(errcode, errmsg, 256));
 	}
-	delete m_cc;
 }
 
 template<class FieldType>
