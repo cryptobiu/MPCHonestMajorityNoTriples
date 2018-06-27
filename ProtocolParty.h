@@ -102,12 +102,11 @@ private:
 	comm_client * m_cc;
 
 	typedef struct __peer_t {
-		size_t id;
 		bool conn;
 		std::vector<u_int8_t> data;
 
 		__peer_t() :
-				id(0), conn(false) {
+				conn(false) {
 		}
 	} peer_t;
 	std::vector<peer_t> m_parties;
@@ -1898,8 +1897,8 @@ void ProtocolParty<FieldType>::roundFunctionSync(vector<vector<byte>> &sendBufs,
 					m_parties[pid].data.size());
 
 			all_data_ready =
-					all_data_ready
-							& (m_parties[pid].data.size() >= recBufs[pid].size()) ?
+					(all_data_ready
+							&& m_parties[pid].data.size() >= recBufs[pid].size()) ?
 							true : false;
 		}
 	} while (!all_data_ready);
@@ -1938,9 +1937,9 @@ void ProtocolParty<FieldType>::roundFunctionSyncForP1(vector<byte> &myShare,
 					m_parties[pid].data.size());
 
 			all_data_ready =
-					all_data_ready
-							&& (m_parties[pid].data.size()
-									>= recBufs[pid].size()) ? true : false;
+					(all_data_ready
+							&& m_parties[pid].data.size() >= recBufs[pid].size()) ?
+							true : false;
 		}
 	} while (!all_data_ready);
 
@@ -2124,11 +2123,14 @@ void ProtocolParty<FieldType>::wait_for_peer_connections() {
 	do {
 		process_network_events();
 		all_parties_connected = true;
-		for (typename std::vector<peer_t>::iterator i = m_parties.begin();
-				i != m_parties.end(); ++i) {
-			if (i->id == m_partyId)
+		for (int i = 0; i < N; ++i) {
+			if (i == m_partyId)
 				continue;
-			all_parties_connected = all_parties_connected && i->conn;
+			log4cpp::Category::getInstance(logcat).debug(
+					"%s: peer %d %sconnected.", __FUNCTION__, i,
+					((m_parties[i].conn) ? "" : "dis"));
+			all_parties_connected =
+					(all_parties_connected && m_parties[i].conn) ? true : false;
 		}
 	} while (!all_parties_connected);
 	log4cpp::Category::getInstance(logcat).debug("%s: all peers connected.",
