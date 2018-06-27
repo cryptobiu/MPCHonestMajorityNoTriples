@@ -481,6 +481,7 @@ void ProtocolParty<FieldType>::run() {
 		log4cpp::Category::getInstance(logcat_tim).info(
 				"%s: time in milliseconds for protocol: %lu.", __FUNCTION__,
 				(size_t) duration);
+		m_cc->stop();
 	}
 }
 
