@@ -1551,9 +1551,15 @@ void ProtocolParty<FieldType>::DNHonestMultiplication(FieldType *a, FieldType *b
 
     else {//each party get the xy-r reconstruced vector from party 1
 
-        //parties[0]->getChannel()->read(xyMinusRBytes.data(), xyMinusRBytes.size());
+        bool party_0_data_ready = false;
+        do
+        {
+        	process_network_events();
+        	party_0_data_ready = (m_parties[0].data.size() >= xyMinusRBytes.size())? true: false;
+        }while(!party_0_data_ready);
 
-        m_cc->send(0, xyMinusRBytes.data(), xyMinusRBytes.size());
+        memcpy(xyMinusRBytes.data(), m_parties[0].data.data(), xyMinusRBytes.size());
+        m_parties[0].data.erase(m_parties[0].data.begin(), m_parties[0].data.begin() + xyMinusRBytes.size());
     }
 
 
@@ -2193,7 +2199,7 @@ void ProtocolParty<FieldType>::process_network_events()
 			m_parties[(*i)->party_id].data.insert(
 					m_parties[(*i)->party_id].data.end(),
 					((comm_msg_evt*)(*i))->msg.begin(),
-				((comm_msg_evt*)(*i))->msg.end());
+					((comm_msg_evt*)(*i))->msg.end());
 			break;
 		default:
 			break;
