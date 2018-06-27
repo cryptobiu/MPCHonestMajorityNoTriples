@@ -633,7 +633,6 @@ void ProtocolParty<FieldType>::inputPhase() {
 	int fieldByteSize = field->getElementSizeInBytes();
 	for (int i = 0; i < N; i++) {
 		sendBufsBytes[i].resize(sendBufsElements[i].size() * fieldByteSize);
-		//cout<< "size of sendBufs1Elements["<<i<<" ].size() is " << sendBufs1Elements[i].size() <<"myID =" <<  m_partyId<<endl;
 		recBufBytes[i].resize(sizes[i] * fieldByteSize);
 		for (int j = 0; j < sendBufsElements[i].size(); j++) {
 			field->elementToBytes(sendBufsBytes[i].data() + (j * fieldByteSize),
@@ -712,12 +711,10 @@ void ProtocolParty<FieldType>::batchConsistencyCheckOfShares(
 	auto key = generateCommonKey();
 
 	//print key
-	if (flag_print) {
-		for (int i = 0; i < key.size(); i++) {
-			cout << "key[" << i << "] for party :" << m_partyId << "is : "
-					<< (int) key[i] << endl;
-		}
-	}
+	for (int i = 0; i < key.size(); i++)
+		log4cpp::Category::getInstance(logcat).info(
+				"%s: key[%d] for party[%d] is: %d.", __FUNCTION__, i, m_partyId,
+				key[i]);
 
 	//calc the number of times we need to run the verification -- ceiling
 	int iterations = (5 + field->getElementSizeInBytes() - 1)
@@ -762,8 +759,6 @@ void ProtocolParty<FieldType>::generateRandomShares(int numOfRandoms,
 	int no_random = numOfRandoms;
 
 	vector<FieldType> x1(N), y1(N), x2(N), y2(N), t1(N), r1(N), t2(N), r2(N);
-	;
-
 	vector<vector<FieldType>> sendBufsElements(N);
 	vector < vector < byte >> sendBufsBytes(N);
 
@@ -806,17 +801,8 @@ void ProtocolParty<FieldType>::generateRandomShares(int numOfRandoms,
 		}
 	}
 
-	if (flag_print) {
-		for (int i = 0; i < N; i++) {
-			for (int k = 0; k < sendBufsElements[0].size(); k++) {
-
-				// cout << "before roundfunction4 send to " <<i <<" element: "<< k << " " << sendBufsElements[i][k] << endl;
-			}
-		}
-		cout << "sendBufs" << endl;
-		cout << "N" << N << endl;
-		cout << "T" << T << endl;
-	}
+	log4cpp::Category::getInstance(logcat).debug("%s: N=%d; T=%d.",
+			__FUNCTION__, N, T);
 
 	int fieldByteSize = field->getElementSizeInBytes();
 	for (int i = 0; i < N; i++) {
@@ -829,21 +815,16 @@ void ProtocolParty<FieldType>::generateRandomShares(int numOfRandoms,
 
 	roundFunctionSync(sendBufsBytes, recBufsBytes, 4);
 
-	if (flag_print) {
-		for (int i = 0; i < N; i++) {
-			for (int k = 0; k < sendBufsBytes[0].size(); k++) {
-
-				cout << "roundfunction4 send to " << i << " element: " << k
-						<< " " << (int) sendBufsBytes[i][k] << endl;
-			}
-		}
-		for (int i = 0; i < N; i++) {
-			for (int k = 0; k < recBufsBytes[0].size(); k++) {
-				cout << "roundfunction4 receive from " << i << " element: " << k
-						<< " " << (int) recBufsBytes[i][k] << endl;
-			}
-		}
-	}
+	for (int i = 0; i < N; i++)
+		for (int k = 0; k < sendBufsBytes[0].size(); k++)
+			log4cpp::Category::getInstance(logcat).debug(
+					"%s: roundfunction4 send to %d element: %d = %d",
+					__FUNCTION__, i, k, (int) sendBufsBytes[i][k]);
+	for (int i = 0; i < N; i++)
+		for (int k = 0; k < recBufsBytes[0].size(); k++)
+			log4cpp::Category::getInstance(logcat).debug(
+					"%s: roundfunction4 recv from %d element: %d = %d",
+					__FUNCTION__, i, k, (int) recBufsBytes[i][k]);
 
 	for (int k = 0; k < no_buckets; k++) {
 		for (int i = 0; i < N; i++) {
